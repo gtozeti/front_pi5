@@ -11,6 +11,10 @@ def index():
 def cadastro():
     return render_template("cadastro.html")
 
+@app.route('/template')
+def template():
+    return render_template("template.html")
+
 @app.route('/home/<user>')
 def user(user):
     return render_template("usuario.html", user=user)
