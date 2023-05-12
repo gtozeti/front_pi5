@@ -15,8 +15,8 @@
 <body>
 
     <div class="container">
-        <div class="row align-items-center justify-content-center form-login">
-            <div class="col-lg-6">
+        <div class="row justify-content-md-center">
+            <div class="col-md-auto form-login">
                 <h1 class="text-center mb-4">Login</h1>
                 <form>
                     <div class="form-group">
@@ -27,8 +27,12 @@
                         <label for="password">Senha</label>
                         <input type="password" class="form-control" id="password" placeholder="Digite a sua senha">
                     </div>
-                    <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+                    <button type="submit" class="btn btn-primary btn-block btn-entrar shadow-none">Entrar</button>
                 </form>
+                <a href="{{ url_for('cadastro') }}" class="btn btn-primary btn-block btn-cadastrar shadow-none">Cadastrar</a>
+                <div class="text-center link">
+                    <a href="#" class="">Esqueci minha senha</a>
+              </div>
             </div>
         </div>
     </div>
