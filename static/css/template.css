@@ -81,3 +81,9 @@
   i{
     margin: 10px;
   }
+
+  .dropdown-item:hover{
+    background-color: #14213E;
+    transition: 0.5s;
+    color: white;
+  }
