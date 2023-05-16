@@ -11,3 +11,4 @@ function openNav() {
     document.getElementById("main").style.marginLeft = "0";
     document.getElementById( "openside" ).setAttribute( "onClick", "javascript: openNav();" );
   }
+
