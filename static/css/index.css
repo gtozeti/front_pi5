@@ -1,5 +1,5 @@
 body{
-  background-color: #14213E
+  background-color: #464C47
 }
 
 .form-login {
@@ -12,15 +12,15 @@ body{
 }
 
 .btn-entrar {
-  background-color: #14213E;
-  border-color: #14213E;
+  background-color: #C29049;
+  border-color: #C29049;
   border-radius: 17px;
   margin-top: 71px;
 }
 
 .btn-cadastrar {
-  background-color: #EA4334;
-  border-color:#EA4334;
+  background-color: #A43131;
+  border-color:#A43131;
   border-radius: 17px;
   margin-top: 40px;
 }
@@ -29,7 +29,18 @@ body{
   margin-top: 20px;
 }
 
-.btn:hover {
+.btn-entrar:hover {
   background-color: white;
-  color: #14213E;
+  color: #000;
+  border-color: #C29049;
+}
+
+.btn-cadastrar:hover {
+  background-color: white;
+  color: #000;
+  border-color: #A43131;
+}
+
+.btn-primary:active {
+  background-color: white;
 }
