@@ -107,3 +107,16 @@ i {
   transition: 0.5s;
   color: white;
 }
+
+.btn-cadastro{
+  background-color: #464C47;
+}
+
+.linha > tr:hover {
+  color: white;
+  cursor: pointer;
+  background-color: #A43131;
+  transition: 0.5s;
+  font-size: 1.1em;
+
+}
