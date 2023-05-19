@@ -179,7 +179,7 @@
             <!-- Modal Cadastro de Peça -->
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
-                <div class="modal-dialog" role="document">
+                <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Cadastro de peça</h5>
@@ -188,48 +188,98 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form>
+                            <form enctype="multipart/form-data" id="dadosForm">
                                 <div class="form-row justify-content-center">
                                     <div class="form-group col-md-6">
-                                        <label for="nome">Nome</label>
-                                        <input required="true" type="text" class="form-control" id="nome"
-                                            placeholder="Digite o seu nome">
+                                        <label for="desc_peca">Descrição da peça</label>
+                                        <input type="text" class="form-control" id="desc_peca" name="desc_peca"
+                                            placeholder="Digite o nome da peça"></input>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="sobrenome">Sobrenome</label>
-                                        <input required="true" type="text" class="form-control" id="sobrenome"
-                                            placeholder="Digite o seu sobrenome">
-                                    </div>
-                                    <div class="form-group col-md-12">
-                                        <label for="email">E-mail</label>
-                                        <input required="true" type="email" class="form-control" id="email"
-                                            placeholder="Digite o seu e-mail">
+                                        <label for="part_number">Part Number</label>
+                                        <input id="part_number" name="part_number" type="text" class="form-control"
+                                            placeholder="Digite o part number da peça">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="cargo">Cargo</label>
-                                        <input required="true" type="text" class="form-control" id="cargo"
-                                            placeholder="Digite o seu cargo">
+                                        <label for="locacao">Locação</label>
+                                        <input type="text" class="form-control" id="locacao" name="locacao"
+                                            placeholder="Digite a locação da peça">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="funcao">Função</label>
-                                        <input required="true" type="text" class="form-control" id="funcao"
-                                            placeholder="Digite a sua função">
+                                        <label for="modelo_carro">Modelo do carro</label>
+                                        <input type="text" class="form-control" id="modelo_carro" name="modelo_carro"
+                                            placeholder="Digite o modelo do carro">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="senha">Senha</label>
-                                        <input required="true" type="password" class="form-control" id="senha"
-                                            placeholder="Digite a sua senha">
+                                        <label for="sublocacao">Sublocação</label>
+                                        <input type="text" class="form-control" id="sublocacao" name="sublocacao"
+                                            placeholder="Digite a sublocação">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="confirma_senha">Confirmar senha</label>
-                                        <input required="true" type="password" class="form-control" id="confirma_senha"
-                                            placeholder="Confirme sua senha">
+                                        <label for="estado">Estado</label>
+                                        <select name="estado_peca" id="estado" name="estado" class="form-control">
+                                            <option value="" disabled selected>Selecione um estado</option>
+                                            <option value="novo">Novo</option>
+                                            <option value="usado">Usado</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="peso">Peso</label>
+                                        <input type="text" class="form-control" name="peso" id="peso" placeholder="Digite o peso">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="ncm">NCM</label>
+                                        <input type="text"  name="ncm" class="form-control" id="ncm" placeholder="Digite o NCM">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="subsistema">Subsistema</label>
+                                        <input type="text" class="form-control" id="subsistema" name="subsistema" 
+                                            placeholder="Digite o subsistema">
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="fabricante">Fabricante</label>
+                                        <input type="text" class="form-control" id="fabricante" name="fabricante"
+                                            placeholder="Digite o fabricante">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="eixo">Eixo</label>
+                                        <input type="text" class="form-control" id="eixo" name="eixo" placeholder="Digite o eixo">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="lado">Lado</label>
+                                        <select name="lado" id="lado" class="form-control">
+                                            <option value="" disabled selected>Selecione o lado</option>
+                                            <option value="L">Esquerdo</option>
+                                            <option value="R">Direito</option>
+                                        </select>
+                                    </div>
+
+
+                                    <!-- <div class="form-group col-md-3 align-self-center">
+                                        <label class="upload" for="imagem">Upload de Imagem
+                                        </label>
+                                        <input type="file" class="form-control" id="imagem" name="imagem"
+                                            onchange="showFileName(event)"> -->
+
+                                    </div>
+                                    <div class="form-group col-md-9 align-self-center" id="file-upload-filename"></div>
+
+
+
+                                    <div class="col-md-6 my-1">
+
+                                        <button type="submit" onclick="cadastrar_peca()"
+                                            class="btn btn-primary btn-block btn-cadastrar shadow-none">Cadastrar</button>
                                     </div>
                                     <div class="col-md-6 my-1">
 
-                                        <button type="submit"
-                                            class="btn btn-primary btn-block btn-cadastrar shadow-none">Cadastrar</button>
+                                        <button type="reset"
+                                            class="btn btn-secondary btn-block btn-cadastrar shadow-none"
+                                            onclick="clearLabel()">Limpar</button>
                                     </div>
+
+
 
                                 </div>
                             </form>
@@ -241,22 +291,22 @@
 
             <!-- Modal Informações da Peça -->
             <div class="modal fade" id="modal-info" tabindex="-1" role="dialog" aria-labelledby="modal-info-peca"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modal-info-peca">Informações da peça</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        
-                    </div>
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modal-info-peca">Informações da peça</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
 
+                        </div>
+
+                    </div>
                 </div>
             </div>
-        </div>
 
 
         </div>
@@ -298,6 +348,8 @@
             });
         });
     </script>
+
+
 
 
 </body>
