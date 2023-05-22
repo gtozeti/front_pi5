@@ -39,80 +39,97 @@ function clearLabel() {
   infoArea.classList.remove("rounded")
 }
 
-function cadastrar_peca() {
 
-  let form = document.getElementById("dadosForm")
-  form.addEventListener("submit", (e) => {
 
-    const form = e.currentTarget;
-    const url = 'http://127.0.0.1:8000'
-    const endpoint = '/cadastro'
-    // const formData = new FormData(form);
+let form = document.getElementById("dadosForm")
+form.addEventListener("submit", (e) => {
 
-    let desc_peca = document.getElementById("desc_peca").value
-    let part_number = document.getElementById("part_number").value
-    let locacao = document.getElementById("locacao").value
-    let modelo_carro = document.getElementById("modelo_carro").value
-    let sublocacao = document.getElementById("sublocacao").value
-    let estado = document.getElementById("estado").value
-    let peso = document.getElementById("peso").value
-    let subsistema = document.getElementById("subsistema").value
-    let fabricante = document.getElementById("fabricante").value
-    let eixo = document.getElementById("eixo").value
-    let lado = document.getElementById("lado").value
-    let image = document.getElementById("file-upload-filename")
+  e.preventDefault()
 
- 
+  const form = e.currentTarget;
+  const url = 'http://127.0.0.1:8000'
+  const endpoint = '/cadastro'
+  // const formData = new FormData(form);
 
-    let obj = {
-      "desc_peca": desc_peca,
-      "part_number": part_number,
-      "locacao": locacao,
-      "modelo_carro": modelo_carro,
-      "sublocacao": sublocacao,
-      "estado": estado,
-      "peso": peso,
-      "subsistema": subsistema,
-      "fabricante": fabricante,
-      "eixo": eixo,
-      "lado": lado,
-      // "image": image
-    }
+  let desc_peca = document.getElementById("desc_peca").value
+  let part_number = document.getElementById("part_number").value
+  let locacao = document.getElementById("locacao").value
+  let modelo_carro = document.getElementById("modelo_carro").value
+  let sublocacao = document.getElementById("sublocacao").value
+  let estado = document.getElementById("estado").value
+  let peso = document.getElementById("peso").value
+  let subsistema = document.getElementById("subsistema").value
+  let fabricante = document.getElementById("fabricante").value
+  let eixo = document.getElementById("eixo").value
+  let lado = document.getElementById("lado").value
+  let image = document.getElementById("file-upload-filename")
 
-    
-    const fetchOption = {
-      method: 'POST',
-      body: JSON.stringify(obj),
-      headers: {
-        "content-type": "application/json",
-      },
-      mode: "cors",
-    }
-    
-    fetch(url + endpoint, fetchOption).then(
-      function (response) {
-        if (response.status !== 200) {
-          console.log('Looks like there was a problem. Status Code: ' +
-            response.status);
-          return;
-        }
-        // Examine the text in the response
-        response.json().then(function (data) {
-          // console.log(data);
-        });
+
+
+  let obj = {
+    "desc_peca": desc_peca,
+    "part_number": part_number,
+    "locacao": locacao,
+    "modelo_carro": modelo_carro,
+    "sublocacao": sublocacao,
+    "estado": estado,
+    "peso": peso,
+    "subsistema": subsistema,
+    "fabricante": fabricante,
+    "eixo": eixo,
+    "lado": lado,
+    // "image": image
+  }
+
+
+  const fetchOption = {
+    method: 'POST',
+    body: JSON.stringify(obj),
+    headers: {
+      "content-type": "application/json",
+    },
+    mode: "cors",
+  }
+
+
+  fetch(url + endpoint, fetchOption)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Erro ao fazer a requisição: ' + response.status);
       }
-    ).catch(function (erro) {
-      // Alguma coisa com o erro
-      // window.alert(erro)
+      return response.json();
     })
+    .then(data => {
 
-   
+      window.alert("Item cadastrado com sucesso")
+      $('#exampleModal').modal('hide');
 
-    
+      var tabela = $('#myTable').DataTable();
 
-    // console.log(obj)
+       // Requisição para obter os dados
+       fetch(url + '/estoque')
+       .then(response => response.json())
+       .then(data => {
+           // Inserir os dados na tabela
+           tabela.rows.add(data).draw();
+       })
+       .catch(error => {
+           console.error('Ocorreu um erro em carregar os dados:', error);
+       });
 
-    e.preventDefault()
-  })
 
-}
+    })
+    .catch(error => {
+      // Lide com o erro ocorrido
+      console.error('Ocorreu um erro:', error);
+    });
+
+
+
+
+  // console.log(obj)
+
+})
+
+
+
