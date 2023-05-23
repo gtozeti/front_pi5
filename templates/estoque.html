@@ -45,6 +45,7 @@
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
 
 
+
     <div id="mySidebar" class="sidebar">
         <a href="/estoque" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
             <img src="{{ url_for('static', filename='images/logo.svg')}}" class="img-fluid" alt="Responsive image"
@@ -124,11 +125,11 @@
                         </tr>
                     </thead>
                     <tbody class="linha">
-                        <tr data-toggle="modal" data-target="#modal-info">
+                        <!-- <tr data-toggle="modal" data-target="#modal-info">
                             <td>Row 1 Data 1</td>
                             <td>Row 1 Data 2</td>
                             <td>Row 1 Data 2</td>
-                        </tr>
+                        </tr> -->
                     </tbody>
                 </table>
             </div>
@@ -279,11 +280,8 @@
 
         <!-- Script de carregar a tabela  -->
         <script>
-
-
-
             $(document).ready(function () {
-                var tabela = $('#myTable').DataTable({
+                $('#myTable').DataTable({
                     language: {
                         paginate: {
                             first: "Primeiro",
@@ -294,15 +292,34 @@
                         info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
                         search: "Pesquisar: ",
                         zeroRecords: "Nenhum item encontrado",
-                        emptyTable: "Nenhuma dado disponível",
+                        emptyTable: "Nenhum dado disponível",
                         infoEmpty: "Mostrando 0 a 0 de 0 registros",
-                        infoFiltered: "(filtrado de _MAX_  registros totais)",
+                        infoFiltered: "(filtrado de _MAX_ registros totais)",
                         lengthMenu: "Exibir _MENU_ registros",
-                    }
+                    },
+                    columns: [
+                        { data: 'part_number' },
+                        { data: 'desc_peca' },
+                        { data: 'serial' }
+                    ]
                 });
 
-               
+                fetch('http://127.0.0.1:8000' + '/estoque')
+                    .then(response => response.json())
+                    .then(data => {
+
+                        var tabela = $('#myTable').DataTable();
+                        
+                        // Inserir os dados na tabela
+                        tabela.rows.add(data).draw();
+                    })
+                    .catch(error => {
+                        console.error('Ocorreu um erro em carregar os dados:', error);
+                    });
+
             });
+
+
 
         </script>
 

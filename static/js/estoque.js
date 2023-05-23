@@ -103,20 +103,8 @@ form.addEventListener("submit", (e) => {
 
       window.alert("Item cadastrado com sucesso")
       $('#exampleModal').modal('hide');
-
       var tabela = $('#myTable').DataTable();
-
-       // Requisição para obter os dados
-       fetch(url + '/estoque')
-       .then(response => response.json())
-       .then(data => {
-           // Inserir os dados na tabela
-           tabela.rows.add(data).draw();
-       })
-       .catch(error => {
-           console.error('Ocorreu um erro em carregar os dados:', error);
-       });
-
+      location.reload()
 
     })
     .catch(error => {
@@ -131,5 +119,7 @@ form.addEventListener("submit", (e) => {
 
 })
 
-
+function teste() {
+  console.log('ksdjhf')
+}
 
