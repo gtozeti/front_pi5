@@ -31,13 +31,13 @@ function showFileName(event) {
   infoArea.classList.add("rounded")
 }
 
-function clearLabel() {
-  var infoArea = document.getElementById('file-upload-filename');
-  infoArea.textContent = '';
-  infoArea.classList.remove("border")
-  infoArea.classList.remove("border-primary")
-  infoArea.classList.remove("rounded")
-}
+// function clearLabel() {
+//   var infoArea = document.getElementById('file-upload-filename');
+//   infoArea.textContent = '';
+//   infoArea.classList.remove("border")
+//   infoArea.classList.remove("border-primary")
+//   infoArea.classList.remove("rounded")
+// }
 
 
 
@@ -62,7 +62,6 @@ form.addEventListener("submit", (e) => {
   let fabricante = document.getElementById("fabricante").value
   let eixo = document.getElementById("eixo").value
   let lado = document.getElementById("lado").value
-  let image = document.getElementById("file-upload-filename")
 
 
 
@@ -77,8 +76,7 @@ form.addEventListener("submit", (e) => {
     "subsistema": subsistema,
     "fabricante": fabricante,
     "eixo": eixo,
-    "lado": lado,
-    // "image": image
+    "lado": lado
   }
 
 
@@ -119,7 +117,46 @@ form.addEventListener("submit", (e) => {
 
 })
 
-function teste() {
-  console.log('ksdjhf')
+function get_info(id) {
+
+  fetch('http://127.0.0.1:8000' + '/estoque/' + id, { method: 'GET', mode: "cors" })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Erro ao fazer a requisição: ' + response.status);
+      }
+      return response.json();
+    })
+    .then(data => {
+
+      document.getElementById("info_desc_peca").value = data.desc_peca
+      document.getElementById("info_part_number").value = data.part_number
+      document.getElementById("info_locacao").value = ""
+      document.getElementById("info_modelo_carro").value = ""
+      document.getElementById("info_sublocacao").value = ""
+      document.getElementById("info_estado").value = "New ou Old"
+      document.getElementById("info_peso").value = ""
+      document.getElementById("info_subsistema").value = ""
+      document.getElementById("info_fabricante").value = ""
+      document.getElementById("info_eixo").value = ""
+      document.getElementById("info_lado").value = "R ou L"
+
+    })
+    .catch(error => {
+      // Lide com o erro ocorrido
+      console.error('Ocorreu um erro:', error);
+    });
 }
 
+function att(e) {
+  console.log(e.textContent)
+  let modal = document.getElementById("moviment")
+
+  let entrada = "entrada"
+  let saida = "saida"
+
+  
+  
+  modal.insertAdjacentHTML('afterend', e.textContent == "Entrada" ? entrada :saida )
+  
+
+}

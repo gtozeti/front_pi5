@@ -119,6 +119,7 @@
                 <table id="myTable" class="table table-bordered table-light">
                     <thead>
                         <tr>
+                            <th>ID</th>
                             <th>Part Number</th>
                             <th>Descrição da peça</th>
                             <th>Serial</th>
@@ -198,10 +199,15 @@
                                             placeholder="Digite o subsistema">
                                     </div>
 
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-3">
                                         <label for="fabricante">Fabricante</label>
                                         <input type="text" class="form-control" id="fabricante" name="fabricante"
                                             placeholder="Digite o fabricante">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="quantidade">Quantidade</label>
+                                        <input type="text" class="form-control" id="quantidade" name="quantidade"
+                                            placeholder="Digite a quantidade">
                                     </div>
                                     <div class="form-group col-md-3">
                                         <label for="eixo">Eixo</label>
@@ -217,15 +223,15 @@
                                         </select>
                                     </div>
 
-
-                                    <div class="form-group col-md-3 align-self-center">
+                                    <!-- Upload de imagem -->
+                                    <!-- <div class="form-group col-md-3 align-self-center">
                                         <label class="upload" for="imagem">Upload de Imagem
                                         </label>
                                         <input type="file" class="form-control" id="imagem" name="imagem"
                                             onchange="showFileName(event)">
 
                                     </div>
-                                    <div class="form-group col-md-9 align-self-center" id="file-upload-filename"></div>
+                                    <div class="form-group col-md-9 align-self-center" id="file-upload-filename"></div> -->
 
 
 
@@ -237,8 +243,7 @@
                                     <div class="col-md-6 my-1">
 
                                         <button type="reset"
-                                            class="btn btn-secondary btn-block btn-cadastrar shadow-none"
-                                            onclick="clearLabel()">Limpar</button>
+                                            class="btn btn-secondary btn-block btn-cadastrar shadow-none">Limpar</button>
                                     </div>
 
 
@@ -254,7 +259,7 @@
             <!-- Modal Informações da Peça -->
             <div class="modal fade" id="modal-info" tabindex="-1" role="dialog" aria-labelledby="modal-info-peca"
                 aria-hidden="true">
-                <div class="modal-dialog" role="document">
+                <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="modal-info-peca">Informações da peça</h5>
@@ -263,7 +268,107 @@
                             </button>
                         </div>
                         <div class="modal-body">
+                            <div class="form-row justify-content-center" id="moviment">
+                                <div class="form-group col-md-6">
+                                    <label for="desc_peca">Descrição da peça</label>
+                                    <input type="text" class="form-control" id="info_desc_peca" name="desc_peca"
+                                        disabled></input>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="part_number">Part Number</label>
+                                    <input id="info_part_number" name="part_number" type="text" class="form-control"
+                                        disabled>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="locacao">Locação</label>
+                                    <input type="text" class="form-control" id="info_locacao" name="locacao" disabled>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="modelo_carro">Modelo do carro</label>
+                                    <input type="text" class="form-control" id="info_modelo_carro" name="modelo_carro"
+                                        disabled>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="sublocacao">Sublocação</label>
+                                    <input type="text" class="form-control" id="info_sublocacao" name="sublocacao"
+                                        disabled>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="estado">Estado</label>
+                                    <input type="text" class="form-control" name="estado" id="info_estado" disabled>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="peso">Peso</label>
+                                    <input type="text" class="form-control" name="peso" id="info_peso" disabled>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="ncm">NCM</label>
+                                    <input type="text" name="ncm" class="form-control" id="info_ncm" disabled>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="subsistema">Subsistema</label>
+                                    <input type="text" class="form-control" id="info_subsistema" name="subsistema"
+                                        disabled>
+                                </div>
 
+                                <div class="form-group col-md-3">
+                                    <label for="fabricante">Fabricante</label>
+                                    <input type="text" class="form-control" id="info_fabricante" name="fabricante"
+                                        disabled>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="quantidade">Quantidade</label>
+                                    <input type="text" class="form-control" id="info_quantidade" name="quantidade"
+                                        disabled>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="eixo">Eixo</label>
+                                    <input type="text" class="form-control" id="info_eixo" name="eixo" disabled>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="lado">Lado</label>
+                                    <input type="text" class="form-control" id="info_lado" name="lado" disabled>
+                                </div>
+
+
+
+                                <div class="col-md-6 my-1">
+
+                                    <button onclick="att(this)"
+                                        class="btn btn-success btn-block btn-entrada shadow-none">Entrada</button>
+                                </div>
+                                <div class="col-md-6 my-1">
+
+                                    <button onclick="att(this)" class="btn btn-warning btn-block btn-saida shadow-none">Saída</button>
+                                </div>
+
+                                <!-- HTML de entrada -->
+                                <form enctype="multipart/form-data" id="moviment_dadosForm" class="my-5" id="att">
+                                    <div class="form-row justify-content-center">
+                                        <div class="form-group col-md-4">
+                                            <label for="moviment_action">Ação</label>
+                                            <input id="moviment_action" name="moviment_action" type="text" class="form-control"
+                                                placeholder="Digite a ação">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="moviment_qtd">Quantidade</label>
+                                            <input id="moviment_qtd" name="moviment_qtd" type="text" class="form-control"
+                                                placeholder="Digite a quantidade">
+                                        </div>
+
+                                        <div class="col-md-6 my-1">
+
+                                            <button type="submit"
+                                                class="btn btn-primary btn-block btn-cadastrar shadow-none">Registrar</button>
+                                        </div>
+                                        
+
+
+
+                                    </div>
+                                </form>
+
+                            </div>
                         </div>
 
                     </div>
@@ -298,6 +403,7 @@
                         lengthMenu: "Exibir _MENU_ registros",
                     },
                     columns: [
+                        { data: 'id', visible: false, searchable: false },
                         { data: 'part_number' },
                         { data: 'desc_peca' },
                         { data: 'serial' }
@@ -309,7 +415,7 @@
                     .then(data => {
 
                         var tabela = $('#myTable').DataTable();
-                        
+
                         // Inserir os dados na tabela
                         tabela.rows.add(data).draw();
                     })
@@ -330,10 +436,15 @@
 
                 $('#myTable').on('click', 'tbody tr', function () {
                     var row = table.row($(this)).data();
+                    $('#modal-info').modal('show')
                     console.log(row)
+                    get_info(row.id)
                     // localStorage.setItem('id', row[0]);
                     // window.location.href = 'http://localhost:8080/tela-tabela-cliente'
                 });
+
+
+
             });
         </script>
 
