@@ -332,28 +332,32 @@
 
 
 
-                                <div class="col-md-6 my-1">
+                                <div class="col-md-6">
 
                                     <button onclick="att(this)"
                                         class="btn btn-success btn-block btn-entrada shadow-none">Entrada</button>
                                 </div>
-                                <div class="col-md-6 my-1">
+                                <div class="col-md-6">
 
-                                    <button onclick="att(this)" class="btn btn-warning btn-block btn-saida shadow-none">Saída</button>
+                                    <button onclick="att(this)"
+                                        class="btn btn-warning btn-block btn-saida shadow-none">Saída</button>
                                 </div>
 
                                 <!-- HTML de entrada -->
-                                <form enctype="multipart/form-data" id="moviment_dadosForm" class="my-5" id="att">
-                                    <div class="form-row justify-content-center">
+                                <form enctype="multipart/form-data" id="moviment_dadosForm_in" class=" col-md-12"  hidden>
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Entrada</h5>
+                                    </div>
+                                    <div class="form-row justify-content-center my-3">
                                         <div class="form-group col-md-4">
-                                            <label for="moviment_action">Ação</label>
-                                            <input id="moviment_action" name="moviment_action" type="text" class="form-control"
-                                                placeholder="Digite a ação">
+                                            <label for="moviment_action_in">Ação</label>
+                                            <input id="moviment_action_in" name="moviment_action_in" type="text"
+                                                class="form-control" placeholder="Digite a ação">
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <label for="moviment_qtd">Quantidade</label>
-                                            <input id="moviment_qtd" name="moviment_qtd" type="text" class="form-control"
-                                                placeholder="Digite a quantidade">
+                                            <label for="moviment_qtd_in">Quantidade</label>
+                                            <input id="moviment_qtd_in" name="moviment_qtd_in" type="text"
+                                                class="form-control" placeholder="Digite a quantidade">
                                         </div>
 
                                         <div class="col-md-6 my-1">
@@ -361,7 +365,76 @@
                                             <button type="submit"
                                                 class="btn btn-primary btn-block btn-cadastrar shadow-none">Registrar</button>
                                         </div>
-                                        
+
+
+
+
+                                    </div>
+                                </form>
+
+                                <!-- HTML de saída -->
+                                <form enctype="multipart/form-data" id="moviment_dadosForm_out"  hidden>
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Saída</h5>
+                                    </div>
+                                    <div class="form-row justify-content-center my-3">
+                                        <div class="form-group col-md-4">
+                                            <label for="moviment_action_out">Ação</label>
+                                            <input id="moviment_action_out" name="moviment_action_out" type="text"
+                                                class="form-control" placeholder="Digite a ação">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="moviment_qtd_out">Quantidade</label>
+                                            <input id="moviment_qtd_out" name="moviment_qtd_out" type="text"
+                                                class="form-control" placeholder="Digite a quantidade">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="moviment_chassis_out">Chassis</label>
+                                            <input id="moviment_chassis_out" name="moviment_chassis_out" type="text"
+                                                class="form-control" placeholder="Digite o chassis">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="moviment_eixo_out">Eixo</label>
+                                            <input id="moviment_eixo_out" name="moviment_eixo_out" type="text"
+                                                class="form-control" placeholder="Digite o eixo">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="moviment_lado_out">Lado</label>
+                                            <input id="moviment_lado_out" name="moviment_lado_out" type="text"
+                                                class="form-control" placeholder="Digite o lado">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="moviment_etapa_out">Etapa</label>
+                                            <input id="moviment_etapa_out" name="moviment_etapa_out" type="text"
+                                                class="form-control" placeholder="Digite a etapa">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="moviment_sessao_out">Sessão</label>
+                                            <input id="moviment_sessao_out" name="moviment_sessao_out" type="text"
+                                                class="form-control" placeholder="Digite a sessão">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="moviment_peca_out">Peça</label>
+                                            <input id="moviment_peca_out" name="moviment_peca_out" type="text"
+                                                class="form-control" placeholder="Digite a peça">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="moviment_est_peca_out">Estado da peça</label>
+                                            <input id="moviment_est_peca_out" name="moviment_est_peca_out" type="text"
+                                                class="form-control" placeholder="Digite o estado da peça">
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <label for="moviment_motivo_out">Motivo</label>
+                                            <input id="moviment_motivo_out" name="moviment_motivo_out" type="text"
+                                                class="form-control" placeholder="Digite o motivo">
+                                        </div>
+
+                                        <div class="col-md-6 my-1">
+
+                                            <button type="submit"
+                                                class="btn btn-primary btn-block btn-cadastrar shadow-none">Registrar</button>
+                                        </div>
+
 
 
 
@@ -439,7 +512,7 @@
                     $('#modal-info').modal('show')
                     console.log(row)
                     get_info(row.id)
-                    // localStorage.setItem('id', row[0]);
+                    localStorage.setItem('id', row.id);
                     // window.location.href = 'http://localhost:8080/tela-tabela-cliente'
                 });
 

@@ -41,6 +41,7 @@ function showFileName(event) {
 
 
 
+//  Função de cadastro de peça 
 let form = document.getElementById("dadosForm")
 form.addEventListener("submit", (e) => {
 
@@ -117,6 +118,122 @@ form.addEventListener("submit", (e) => {
 
 })
 
+// Função de entrada peça
+let form_info_in = document.getElementById("moviment_dadosForm_in")
+form_info_in.addEventListener("submit", (e) => {
+  e.preventDefault()
+
+  const url = 'http://127.0.0.1:8000'
+  const endpoint = '/moviment/in/'
+
+  // elementos de entrada
+  let acao_in = document.getElementById("moviment_action_in").value
+  let qtd_in = document.getElementById("moviment_qtd_in").value
+
+
+  let obj_in = {
+    "acao": acao_in,
+    "qtd": qtd_in
+  }
+
+
+  const fetchOption = {
+    method: 'PUT',
+    body: JSON.stringify(obj_in),
+    headers: {
+      "content-type": "application/json",
+    },
+    mode: "cors",
+  }
+
+
+  fetch(url + endpoint + localStorage.getItem("id"), fetchOption)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Erro ao fazer a requisição: ' + response.status);
+      }
+      return response.json();
+    })
+    .then(data => {
+
+      window.alert("Item registrado com sucesso")
+      $('#modal-info').modal('hide');
+      document.getElementById('moviment_dadosForm_in').setAttribute("hidden", true)
+      location.reload()
+
+    })
+    .catch(error => {
+      // Lide com o erro ocorrido
+      console.error('Ocorreu um erro:', error);
+    });
+
+})
+
+// Função de saída peça
+let form_info_out = document.getElementById("moviment_dadosForm_out")
+form_info_out.addEventListener("submit", (e) => {
+  e.preventDefault()
+
+  const url = 'http://127.0.0.1:8000'
+  const endpoint = '/moviment/out/'
+
+  // elementos de saída
+  let action_out = document.getElementById("moviment_action_out").value
+  let qtd_out = document.getElementById("moviment_qtd_out").value
+  let chassis_out = document.getElementById("moviment_chassis_out").value
+  let eixo_out = document.getElementById("moviment_eixo_out").value
+  let lado_out = document.getElementById("moviment_lado_out").value
+  let etapa_out = document.getElementById("moviment_etapa_out").value
+  let sessao_out = document.getElementById("moviment_sessao_out").value
+  let peca_out = document.getElementById("moviment_peca_out").value
+  let est_peca_out = document.getElementById("moviment_est_peca_out").value
+  let motivo_out = document.getElementById("moviment_motivo_out").value
+
+  let obj_out = {
+    "action_out": action_out,
+    "qtd_out": qtd_out,
+    "chassis_out": chassis_out,
+    "eixo_out": eixo_out,
+    "lado_out": lado_out,
+    "etapa_out": etapa_out,
+    "sessao_out": sessao_out,
+    "peca_out": peca_out,
+    "est_peca_out": est_peca_out,
+    "motivo_out": motivo_out
+  }
+
+  const fetchOption = {
+    method: 'PUT',
+    body: JSON.stringify(obj_out),
+    headers: {
+      "content-type": "application/json",
+    },
+    mode: "cors",
+  }
+
+
+  fetch(url + endpoint + localStorage.getItem("id"), fetchOption)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Erro ao fazer a requisição: ' + response.status);
+      }
+      return response.json();
+    })
+    .then(data => {
+
+      window.alert("Item registrado com sucesso")
+      $('#modal-info').modal('hide');
+      document.getElementById('moviment_dadosForm_out').setAttribute("hidden", true)
+      location.reload()
+
+    })
+    .catch(error => {
+      // Lide com o erro ocorrido
+      console.error('Ocorreu um erro:', error);
+    });
+
+})
+
 function get_info(id) {
 
   fetch('http://127.0.0.1:8000' + '/estoque/' + id, { method: 'GET', mode: "cors" })
@@ -148,15 +265,40 @@ function get_info(id) {
 }
 
 function att(e) {
-  console.log(e.textContent)
-  let modal = document.getElementById("moviment")
 
-  let entrada = "entrada"
-  let saida = "saida"
 
-  
-  
-  modal.insertAdjacentHTML('afterend', e.textContent == "Entrada" ? entrada :saida )
-  
+  let entrada = document.getElementById('moviment_dadosForm_in')
+  let saida = document.getElementById('moviment_dadosForm_out')
+
+
+
+  if (e.textContent == "Entrada") {
+    if (!entrada.hasAttribute('hidden')) {
+      entrada.setAttribute("hidden", true)
+    }
+    else {
+
+
+      entrada.removeAttribute("hidden")
+      saida.setAttribute("hidden", true)
+    }
+
+
+  }
+  else {
+    if (!saida.hasAttribute('hidden')) {
+      saida.setAttribute("hidden", true)
+    }
+    else {
+
+
+      saida.removeAttribute("hidden")
+      entrada.setAttribute("hidden", true)
+    }
+
+  }
+
 
 }
+
+
