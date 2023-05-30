@@ -21,8 +21,8 @@
         crossorigin="anonymous"></script>
 
     <!-- CSS e JS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/template.css') }}">
-    <script src="{{ url_for('static', filename='js/template.js')}}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/relatorio.css') }}">
+    <script src="{{ url_for('static', filename='js/relatorio.js')}}"></script>
 
     <!-- Font Awesome JS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
@@ -51,9 +51,7 @@
                     <li>
                         <a href="{{ url_for('estoque') }}"><i class="fas fa-boxes"></i>Estoque</a>
                     </li>
-                    <li>
-                        <a href="{{ url_for('cadastro_peca') }}"><i class="fas fa-folder-plus"></i>Cadastro</a>
-                    </li>
+
                 </ul>
             </li>
             <li>
@@ -93,17 +91,47 @@
 
         </nav>
 
-        <div class="col-md-auto">
-            <h3 class="my-5 text-secondary">Funcionalidade XPTO</h3>
+        <div class="container-fluid">
+            <div class="my-5 row justify-content">
+
+                <div class="col">
+                    <h3 class="text-secondary">Relatório Geral</h3>
+                </div>
+
+
+            </div>
+
+            <div class="modal-body">
+                <form enctype="multipart/form-data" id="dadosForm">
+                    <div class="form-row justify-content-center align-items-end">
+                        <div class="form-group col-md-3">
+                            <label for="tipo_relat">Tipo</label>
+                            <select required name="tipo_relat" id="tipo_relat" name="tipo_relat" class="form-control">
+                                <option value="" disabled selected>Selecione o tipo</option>
+                                <option value="entrada">Entrada</option>
+                                <option value="saida">Saida</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="dt_inicio">Data Ínicio</label>
+                            <input required type="date" name="dt_inicio" id="dt_inicio" name="dt_inicio" class="form-control">
+                            </input>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="dt_fim">Data Fim</label>
+                            <input required type="date" name="dt_fim" id="dt_fim" name="dt_fim" class="form-control">
+                            </input>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <button type="submit"
+                                class="btn btn-primary btn-block btn-cadastrar shadow-none">Gerar</button>
+                        </div>
+                    </div>
+            </div>
+
         </div>
 
-        <div>
-            Conteúdo aquiii!!!!
-        </div>
 
-    </div>
-
-    
 
 </body>
 
