@@ -1,6 +1,5 @@
-from flask import Flask, render_template, request, session, redirect, flash
-
 import requests as r
+from flask import Flask, flash, redirect, render_template, request, session
 
 app = Flask(__name__)
 
@@ -46,7 +45,10 @@ def logout():
 
 @app.route('/cadastro')
 def cadastro():
-    return render_template("cadastro.html")
+    if session.get("id"):
+        return render_template("cadastro.html")
+    else:
+        return redirect('/')
 
 
 @app.route('/estoque')

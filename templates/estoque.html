@@ -60,16 +60,26 @@
                     <li>
                         <a href="{{ url_for('estoque') }}"><i class="fas fa-boxes"></i>Estoque</a>
                     </li>
-                    
+
                 </ul>
             </li>
-           {% if session.accessType != "ADMIN" %}
+            {% if session.accessType == "ADMIN" %}
             <li>
-                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false"
+                <a href="#pageSubmenu1" data-toggle="collapse" aria-expanded="false"
                     class="dropdown-toggle collapsed">Analítico</a>
-                <ul class="list-unstyled collapse" id="pageSubmenu">
+                <ul class="list-unstyled collapse" id="pageSubmenu1">
                     <li>
                         <a href="{{ url_for('relatorio') }}"><i class="fas fa-chart-line"></i>Relatório</a>
+
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#pageSubmenu2" data-toggle="collapse" aria-expanded="false"
+                    class="dropdown-toggle collapsed">Pessoas</a>
+                <ul class="list-unstyled collapse" id="pageSubmenu2">
+                    <li>
+                        <a href="{{ url_for('cadastro') }}"><i class="fas fa-user-plus"></i>Cadastro</a>
 
                     </li>
                 </ul>
@@ -79,7 +89,7 @@
     </div>
 
     <div id="main">
-        <nav class="navbar navbar-light ">
+        <nav class="navbar navbar-light open">
             <button class="shadow-none navbar-toggler" type="button" data-toggle="collapse" id='openside'
                 onclick="openNav()" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
                 aria-expanded="false" aria-label="Toggle navigation">
@@ -102,6 +112,7 @@
 
         </nav>
 
+
         <div class="container-fluid">
             <div class="my-5 row justify-content">
 
@@ -115,8 +126,8 @@
 
             </div>
 
-            <div class="col-md-auto ">
-                <table id="myTable" class="table table-bordered table-light">
+            <div class="col-md-auto">
+                <table id="myTable" class="table table-light">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -124,16 +135,14 @@
                             <th>Descrição da peça</th>
                             <th>Serial</th>
                         </tr>
+
                     </thead>
                     <tbody class="linha">
-                        <!-- <tr data-toggle="modal" data-target="#modal-info">
-                            <td>Row 1 Data 1</td>
-                            <td>Row 1 Data 2</td>
-                            <td>Row 1 Data 2</td>
-                        </tr> -->
+                        
                     </tbody>
                 </table>
             </div>
+
 
 
             <!-- Modal Cadastro de Peça -->
@@ -344,7 +353,8 @@
                                 </div>
 
                                 <!-- HTML de entrada -->
-                                <form enctype="multipart/form-data" id="moviment_dadosForm_in" class=" col-md-12"  hidden>
+                                <form enctype="multipart/form-data" id="moviment_dadosForm_in" class=" col-md-12"
+                                    hidden>
                                     <div class="modal-header">
                                         <h5 class="modal-title">Entrada</h5>
                                     </div>
@@ -373,7 +383,7 @@
                                 </form>
 
                                 <!-- HTML de saída -->
-                                <form enctype="multipart/form-data" id="moviment_dadosForm_out"  hidden>
+                                <form enctype="multipart/form-data" id="moviment_dadosForm_out" hidden>
                                     <div class="modal-header">
                                         <h5 class="modal-title">Saída</h5>
                                     </div>
@@ -452,76 +462,77 @@
 
 
 
-
         </div>
+    </div>
 
 
-        <!-- Script de carregar a tabela  -->
-        <script>
-            $(document).ready(function () {
-                $('#myTable').DataTable({
-                    language: {
-                        paginate: {
-                            first: "Primeiro",
-                            last: "Último",
-                            next: "Próximo",
-                            previous: "Anterior"
-                        },
-                        info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
-                        search: "Pesquisar: ",
-                        zeroRecords: "Nenhum item encontrado",
-                        emptyTable: "Nenhum dado disponível",
-                        infoEmpty: "Mostrando 0 a 0 de 0 registros",
-                        infoFiltered: "(filtrado de _MAX_ registros totais)",
-                        lengthMenu: "Exibir _MENU_ registros",
+    <!-- Script de carregar a tabela  -->
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable({
+                language: {
+                    paginate: {
+                        first: "Primeiro",
+                        last: "Último",
+                        next: "Próximo",
+                        previous: "Anterior"
                     },
-                    columns: [
-                        { data: 'id', visible: false, searchable: false },
-                        { data: 'part_number' },
-                        { data: 'desc_peca' },
-                        { data: 'serial' }
-                    ]
+                    info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
+                    search: "Pesquisar: ",
+                    zeroRecords: "Nenhum item encontrado",
+                    emptyTable: "Nenhum dado disponível",
+                    infoEmpty: "Mostrando 0 a 0 de 0 registros",
+                    infoFiltered: "(filtrado de _MAX_ registros totais)",
+                    lengthMenu: "Exibir _MENU_ registros",
+                },
+                columns: [
+                    { data: 'id', visible: false, searchable: false },
+                    { data: 'part_number' },
+                    { data: 'desc_peca' },
+                    { data: 'serial' }
+                ]
+            });
+
+            fetch('http://127.0.0.1:8000' + '/estoque')
+                .then(response => response.json())
+                .then(data => {
+
+                    var tabela = $('#myTable').DataTable();
+
+                    // Inserir os dados na tabela
+                    tabela.rows.add(data).draw();
+                })
+                .catch(error => {
+                    console.error('Ocorreu um erro em carregar os dados:', error);
                 });
+            
+            openNav(true)
+        });
 
-                fetch('http://127.0.0.1:8000' + '/estoque')
-                    .then(response => response.json())
-                    .then(data => {
 
-                        var tabela = $('#myTable').DataTable();
 
-                        // Inserir os dados na tabela
-                        tabela.rows.add(data).draw();
-                    })
-                    .catch(error => {
-                        console.error('Ocorreu um erro em carregar os dados:', error);
-                    });
+    </script>
 
+    <!-- Script para pegar as informações da linha da tabela -->
+    <script>
+        $(document).ready(function () {
+            var table = $('#myTable').DataTable();
+
+            $('#myTable').on('click', 'tbody tr', function () {
+                var row = table.row($(this)).data();
+                $('#modal-info').modal('show')
+                console.log(row)
+                get_info(row.id)
+                localStorage.setItem('id', row.id);
+                // window.location.href = 'http://localhost:8080/tela-tabela-cliente'
             });
 
 
 
-        </script>
+        });
+    </script>
 
-        <!-- Script para pegar as informações da linha da tabela -->
-        <script>
-            $(document).ready(function () {
-                var table = $('#myTable').DataTable();
-
-                $('#myTable').on('click', 'tbody tr', function () {
-                    var row = table.row($(this)).data();
-                    $('#modal-info').modal('show')
-                    console.log(row)
-                    get_info(row.id)
-                    localStorage.setItem('id', row.id);
-                    // window.location.href = 'http://localhost:8080/tela-tabela-cliente'
-                });
-
-
-
-            });
-        </script>
-
-        <script src="{{ url_for('static', filename='js/estoque.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/estoque.js')}}"></script>
 
 </body>
 

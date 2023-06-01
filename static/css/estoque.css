@@ -108,11 +108,11 @@ i {
   color: white;
 }
 
-.btn-cadastro{
+.btn-cadastro {
   background-color: #464C47;
 }
 
-.linha > tr:hover {
+.linha>tr:hover {
   color: white;
   cursor: pointer;
   background-color: #A43131;
@@ -122,32 +122,39 @@ i {
 }
 
 .upload {
-    padding: 6px 12px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 1rem;
-    cursor: pointer;
-    background-color: white;
-    color: black;
-    border: 1px solid #A43131;
-    border-radius: 15px;
-    margin-bottom: 0px;
-  
+  padding: 6px 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1rem;
+  cursor: pointer;
+  background-color: white;
+  color: black;
+  border: 1px solid #A43131;
+  border-radius: 15px;
+  margin-bottom: 0px;
+
 }
 
-.upload:hover{
+.upload:hover {
   color: white;
   background-color: #A43131;
   transition: 0.5s;
 }
 
-input[type="file"] { 
+input[type="file"] {
   z-index: 1;
   position: absolute;
   opacity: 0;
 }
 
-input:focus + label {
+input:focus+label {
   outline: 2px solid;
 }
+
+.dataTables_scrollHeadInner,
+.table {
+  width: 100% !important
+}
+
+;
