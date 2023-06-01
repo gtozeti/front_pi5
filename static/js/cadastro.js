@@ -40,6 +40,46 @@ form.addEventListener("submit", (e) => {
     pw2.classList.add("is-invalid");
 
   }
+  else {
 
+    let obj = {
+      "name": name + " " + sobrenome,
+      "login": login,
+      "password": pw1.value,
+      "accessType": accessType
+    }
+
+
+    let auth = localStorage.getItem('auth')
+
+
+    const fetchOption = {
+      method: 'POST',
+      body: JSON.stringify(obj),
+      headers: {
+        "content-type": "application/json",
+        "Authorization": `Bearer ${auth}`
+      },
+      mode: "cors",
+    }
+
+    fetch(url, fetchOption).then(response => {
+      if (!response.ok) {
+        throw new Error('Erro ao fazer a requisição: ' + response.status);
+      }
+      return response.json();
+    })
+    .then(data => {
+
+      window.alert("Usuário cadastrado com sucesso")
+      location.reload()
+
+    })
+    .catch(error => {
+      // Lide com o erro ocorrido
+      console.error('Ocorreu um erro:', error);
+    });
+
+  }
 
 })

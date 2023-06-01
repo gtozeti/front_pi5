@@ -32,9 +32,13 @@ def login():
             flash('Usuário não encontrado!')
             return redirect('/')
     except Exception as e:
-            flash('Ocorreu um erro na aplicação!')
+            flash('Usuário não encontrado!')
             return redirect('/')
 
+@app.route('/get_session_data')
+def get_session_data():
+    auth = session.get('auth')  # Obter o valor da sessão
+    return {'auth': auth}
 
 
 @app.route("/logout")

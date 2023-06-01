@@ -138,7 +138,7 @@
 
                     </thead>
                     <tbody class="linha">
-                        
+
                     </tbody>
                 </table>
             </div>
@@ -505,8 +505,19 @@
                 .catch(error => {
                     console.error('Ocorreu um erro em carregar os dados:', error);
                 });
-            
+
             openNav(true)
+
+            fetch('/get_session_data')  // Fazer uma solicitação para obter o valor da sessão
+                .then(response => response.json())
+                .then(data => {
+                    localStorage.setItem('auth', data.auth);  // Armazenar o valor da sessão no Local Storage
+                    
+                })
+                .catch(error => {
+                    console.error('Erro ao obter valor da sessão:', error);
+                });
+
         });
 
 
