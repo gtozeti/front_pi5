@@ -63,6 +63,7 @@
                     
                 </ul>
             </li>
+           {% if session.accessType != "ADMIN" %}
             <li>
                 <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false"
                     class="dropdown-toggle collapsed">Analítico</a>
@@ -73,6 +74,7 @@
                     </li>
                 </ul>
             </li>
+            {% endif %}
         </ul>
     </div>
 
@@ -86,7 +88,7 @@
             <div class="btn-group">
                 <button type="button" class="btn btn-secondary dropdown-toggle usuario" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
-                    Usuário XXXXXX
+                    Usuário: {{session.name}}
                 </button>
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" href="#">Menu 1</a>
@@ -94,7 +96,7 @@
                     <div class="dropdown-divider"></div>
 
 
-                    <a class="dropdown-item" href="#">Sair <i class="fa fa-solid fa-power-off"></i></a>
+                    <a class="dropdown-item" href="/logout">Sair <i class="fa fa-solid fa-power-off"></i></a>
                 </div>
             </div>
 
