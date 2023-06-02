@@ -135,6 +135,7 @@
                             <th>Part Number</th>
                             <th>Descrição da peça</th>
                             <th>Fabricante</th>
+                            <th>Ação</th>
                         </tr>
 
                     </thead>
@@ -495,7 +496,14 @@
                     { data: 'part_number' },
                     { data: 'desc_peca' },
                     { data: 'fabricante' }
-                ]
+                ],
+                "columnDefs": [{
+                    "targets": 4,
+                    "data": "download_link",
+                    "render": function (data, type, row, meta) {
+                        return '<a href="' + data + '">Download</a><a href="' + data + '">Download</a>';
+                    }
+                }]
             });
 
             const url = 'http://179.209.195.115:157/api/v1/part/all'
@@ -554,7 +562,6 @@
             $('#myTable').on('click', 'tbody tr', function () {
                 var row = table.row($(this)).data();
                 $('#modal-info').modal('show')
-                console.log(row)
                 get_info(row.id, localStorage.getItem('auth'))
                 localStorage.setItem('id', row.id);
                 // window.location.href = 'http://localhost:8080/tela-tabela-cliente'
