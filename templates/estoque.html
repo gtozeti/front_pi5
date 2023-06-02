@@ -63,7 +63,7 @@
 
                 </ul>
             </li>
-            {% if session.accessType == "ADMIN" %}
+            {% if session.accessType == "ADMIN" or session.accessType == "ANALYST" %}
             <li>
                 <a href="#pageSubmenu1" data-toggle="collapse" aria-expanded="false"
                     class="dropdown-toggle collapsed">Analítico</a>

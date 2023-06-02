@@ -17,7 +17,7 @@ def login():
     pw = request.form.get('password')
 
     try:
-        response = r.post('http://localhost:8080/api/v1/auth/token',
+        response = r.post('http://179.209.195.115:157/api/v1/auth/token',
                         json={'login': email, 'password': pw})
 
         info = response.json()

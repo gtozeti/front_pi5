@@ -25,7 +25,7 @@ form.addEventListener("submit", (e) => {
 
   e.preventDefault()
 
-  const url = 'http://localhost:8080/api/v1/user/create'
+  const url = 'http://179.209.195.115:157/api/v1/user/create'
 
   let name = document.getElementById("nome").value
   let sobrenome = document.getElementById("sobrenome").value
@@ -43,25 +43,26 @@ form.addEventListener("submit", (e) => {
   else {
 
     let obj = {
-      "name": name + " " + sobrenome,
-      "login": login,
-      "password": pw1.value,
-      "accessType": accessType
+      'name': name + " " + sobrenome,
+      'login': login,
+      'password': pw1.value,
+      'accessType': accessType
     }
 
 
     let auth = localStorage.getItem('auth')
-
-
+    
     const fetchOption = {
       method: 'POST',
       body: JSON.stringify(obj),
       headers: {
-        "content-type": "application/json",
+        "Content-Type": "application/json",
+        'Accept': '*/*',
         "Authorization": `Bearer ${auth}`
       },
       mode: "cors",
     }
+    
 
     fetch(url, fetchOption).then(response => {
       if (!response.ok) {
@@ -76,10 +77,9 @@ form.addEventListener("submit", (e) => {
 
     })
     .catch(error => {
-      // Lide com o erro ocorrido
       console.error('Ocorreu um erro:', error);
+      window.alert("Erro no cadastro do usuário!")
     });
-
   }
 
 })
