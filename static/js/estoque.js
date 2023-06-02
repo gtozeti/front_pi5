@@ -51,51 +51,48 @@ form.addEventListener("submit", (e) => {
 
   e.preventDefault()
 
-  const form = e.currentTarget;
-  const url = 'http://127.0.0.1:8000'
-  const endpoint = '/cadastro'
-  // const formData = new FormData(form);
-
-  let desc_peca = document.getElementById("desc_peca").value
-  let part_number = document.getElementById("part_number").value
-  let locacao = document.getElementById("locacao").value
-  let modelo_carro = document.getElementById("modelo_carro").value
-  let sublocacao = document.getElementById("sublocacao").value
-  let estado = document.getElementById("estado").value
-  let peso = document.getElementById("peso").value
-  let subsistema = document.getElementById("subsistema").value
-  let fabricante = document.getElementById("fabricante").value
-  let eixo = document.getElementById("eixo").value
-  let lado = document.getElementById("lado").value
-
-
+  let name = document.getElementById("desc_peca").value
+  let partnumber = document.getElementById("part_number").value
+  // let locacao = document.getElementById("locacao").value
+  let carModel = document.getElementById("modelo_carro").value
+  // let sublocacao = document.getElementById("sublocacao").value
+  let state = document.getElementById("estado").value
+  let weight = document.getElementById("peso").value
+  let subsystem = document.getElementById("subsistema").value
+  let manufacturer = document.getElementById("fabricante").value
+  let axleSide = document.getElementById("eixo").value
+  // let lado = document.getElementById("lado").value
 
   let obj = {
-    "desc_peca": desc_peca,
-    "part_number": part_number,
-    "locacao": locacao,
-    "modelo_carro": modelo_carro,
-    "sublocacao": sublocacao,
-    "estado": estado,
-    "peso": peso,
-    "subsistema": subsistema,
-    "fabricante": fabricante,
-    "eixo": eixo,
-    "lado": lado
+    "name": name,
+    "partnumber": partnumber,
+    // "locacao": locacao,
+    "carModel": carModel,
+    // "sublocacao": sublocacao,
+    "state": state,
+    "weight": weight,
+    "subsystem": subsystem,
+    "manufacturer": manufacturer,
+    "axleSide": axleSide,
+    // "lado": lado
   }
 
+  const url = 'http://179.209.195.115:157/api/v1/part/create'
+  let auth = localStorage.getItem('auth')
 
   const fetchOption = {
     method: 'POST',
     body: JSON.stringify(obj),
     headers: {
-      "content-type": "application/json",
+      "Content-Type": "application/json",
+      'Accept': '*/*',
+      "Authorization": `Bearer ${auth}`
     },
     mode: "cors",
   }
 
 
-  fetch(url + endpoint, fetchOption)
+  fetch(url, fetchOption)
     .then(response => {
       if (!response.ok) {
         throw new Error('Erro ao fazer a requisição: ' + response.status);
@@ -111,14 +108,10 @@ form.addEventListener("submit", (e) => {
 
     })
     .catch(error => {
-      // Lide com o erro ocorrido
+      window.alert("Erro ao cadastrar o item!")
       console.error('Ocorreu um erro:', error);
     });
 
-
-
-
-  // console.log(obj)
 
 })
 
@@ -238,9 +231,21 @@ form_info_out.addEventListener("submit", (e) => {
 
 })
 
-function get_info(id) {
+function get_info(id, auth) {
 
-  fetch('http://127.0.0.1:8000' + '/estoque/' + id, { method: 'GET', mode: "cors" })
+  const url = `http://179.209.195.115:157/api/v1/part/find?id=${id}`
+
+  const fetchOption = {
+    method: 'GET',
+    headers: {
+      "Content-Type": "application/json",
+      'Accept': '*/*',
+      "Authorization": `Bearer ${auth}`
+    },
+    mode: "cors",
+  }
+
+  fetch(url, fetchOption)
     .then(response => {
       if (!response.ok) {
         throw new Error('Erro ao fazer a requisição: ' + response.status);
@@ -249,21 +254,21 @@ function get_info(id) {
     })
     .then(data => {
 
-      document.getElementById("info_desc_peca").value = data.desc_peca
-      document.getElementById("info_part_number").value = data.part_number
+      document.getElementById("info_desc_peca").value = data.name
+      document.getElementById("info_part_number").value = data.partnumber
       document.getElementById("info_locacao").value = ""
-      document.getElementById("info_modelo_carro").value = ""
+      document.getElementById("info_modelo_carro").value = data.carModel
       document.getElementById("info_sublocacao").value = ""
-      document.getElementById("info_estado").value = "New ou Old"
-      document.getElementById("info_peso").value = ""
-      document.getElementById("info_subsistema").value = ""
-      document.getElementById("info_fabricante").value = ""
-      document.getElementById("info_eixo").value = ""
+      document.getElementById("info_estado").value = data.state
+      document.getElementById("info_peso").value = data.weight
+      document.getElementById("info_subsistema").value = data.subsystem
+      document.getElementById("info_fabricante").value = data.manufacturer
+      document.getElementById("info_eixo").value = data.axleSide
       document.getElementById("info_lado").value = "R ou L"
 
     })
     .catch(error => {
-      // Lide com o erro ocorrido
+      window.alert("Erro na busca de informações da peça!")
       console.error('Ocorreu um erro:', error);
     });
 }
@@ -305,4 +310,11 @@ function att(e) {
 
 }
 
+function hide() {
+
+  let entrada = document.getElementById('moviment_dadosForm_in')
+  let saida = document.getElementById('moviment_dadosForm_out')
+  saida.setAttribute("hidden", true)
+  entrada.setAttribute("hidden", true)
+}
 

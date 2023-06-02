@@ -119,11 +119,12 @@
                 <div class="col">
                     <h3 class="text-secondary">Pesquisa de peças</h3>
                 </div>
+                {% if session.accessType == "ADMIN" or session.accessType == "ANALYST" %}
                 <div class="col-md-auto">
                     <button type="button" class="btn  btn-secondary btn-cadastro" data-toggle="modal"
                         data-target="#exampleModal"><i class="fa fa-solid fa-plus"></i>Cadastrar peça</button>
                 </div>
-
+                {% endif %}
             </div>
 
             <div class="col-md-auto">
@@ -133,7 +134,7 @@
                             <th>ID</th>
                             <th>Part Number</th>
                             <th>Descrição da peça</th>
-                            <th>Serial</th>
+                            <th>Fabricante</th>
                         </tr>
 
                     </thead>
@@ -188,8 +189,8 @@
                                         <label for="estado">Estado</label>
                                         <select name="estado_peca" id="estado" name="estado" class="form-control">
                                             <option value="" disabled selected>Selecione um estado</option>
-                                            <option value="novo">Novo</option>
-                                            <option value="usado">Usado</option>
+                                            <option value="Active">Active</option>
+                                            <option value="Inactive">Inactive</option>
                                         </select>
                                     </div>
                                     <div class="form-group col-md-3">
@@ -220,8 +221,11 @@
                                     </div>
                                     <div class="form-group col-md-3">
                                         <label for="eixo">Eixo</label>
-                                        <input type="text" class="form-control" id="eixo" name="eixo"
-                                            placeholder="Digite o eixo">
+                                        <select name="eixo" id="eixo" class="form-control">
+                                            <option value="" disabled selected>Selecione o eixo</option>
+                                            <option value="Front">Front</option>
+                                            <option value="Rear">Rear</option>
+                                        </select>
                                     </div>
                                     <div class="form-group col-md-3">
                                         <label for="lado">Lado</label>
@@ -272,7 +276,8 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="modal-info-peca">Informações da peça</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <button type="button" onclick="hide()" class="close" data-dismiss="modal"
+                                aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -489,18 +494,35 @@
                     { data: 'id', visible: false, searchable: false },
                     { data: 'part_number' },
                     { data: 'desc_peca' },
-                    { data: 'serial' }
+                    { data: 'fabricante' }
                 ]
             });
 
-            fetch('http://127.0.0.1:8000' + '/estoque')
+            const url = 'http://179.209.195.115:157/api/v1/part/all'
+
+            let auth = localStorage.getItem('auth')
+
+            const fetchOption = {
+                method: 'GET',
+                headers: {
+                    "Content-Type": "application/json",
+                    'Accept': '*/*',
+                    "Authorization": `Bearer ${auth}`
+                },
+                mode: "cors",
+            }
+
+
+            fetch(url, fetchOption)
                 .then(response => response.json())
                 .then(data => {
-
+                    let info = []
                     var tabela = $('#myTable').DataTable();
-
+                    data.content.forEach(element => {
+                        info.push({ 'id': element.id, 'part_number': element.partnumber, 'desc_peca': element.name, 'fabricante': element.manufacturer })
+                    });
                     // Inserir os dados na tabela
-                    tabela.rows.add(data).draw();
+                    tabela.rows.add(info).draw();
                 })
                 .catch(error => {
                     console.error('Ocorreu um erro em carregar os dados:', error);
@@ -512,7 +534,7 @@
                 .then(response => response.json())
                 .then(data => {
                     localStorage.setItem('auth', data.auth);  // Armazenar o valor da sessão no Local Storage
-                    
+
                 })
                 .catch(error => {
                     console.error('Erro ao obter valor da sessão:', error);
@@ -533,7 +555,7 @@
                 var row = table.row($(this)).data();
                 $('#modal-info').modal('show')
                 console.log(row)
-                get_info(row.id)
+                get_info(row.id, localStorage.getItem('auth'))
                 localStorage.setItem('id', row.id);
                 // window.location.href = 'http://localhost:8080/tela-tabela-cliente'
             });
