@@ -305,6 +305,46 @@ form_edit.addEventListener("submit", (e) => {
 
 })
 
+//  Função de atualização de peça 
+let form_delete = document.getElementById("dadosFormDelete")
+form_delete.addEventListener("submit", (e) => {
+
+  let id = localStorage.getItem('id')
+
+  const url = `http://179.209.195.115:157/api/v1/part/delete?id=${id}`
+  let auth = localStorage.getItem('auth')
+
+  const fetchOption = {
+    method: 'DELETE',
+    headers: {
+      "Authorization": `Bearer ${auth}`
+    },
+    mode: "cors",
+  }
+
+
+  fetch(url, fetchOption)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Erro ao fazer a requisição: ' + response.status);
+      }
+      return response.json();
+    })
+    .then(data => {
+
+      window.alert("Item deletado com sucesso")
+      $('#exampleModalDelete').modal('hide');
+      location.reload()
+
+    })
+    .catch(error => {
+      window.alert("Erro ao deletar o item!")
+      console.error('Ocorreu um erro:', error);
+    });
+
+
+})
+
 function get_info(id, auth) {
 
   const url = `http://179.209.195.115:157/api/v1/part/find?id=${id}`
@@ -372,6 +412,9 @@ function get_att(id) {
       return response.json();
     })
     .then(data => {
+
+      document.getElementById("info_delete").innerHTML  = `${data.partnumber} - ${data.name} - ${data.manufacturer}`
+
 
       document.getElementById("att_info_desc_peca").value = data.name
       document.getElementById("att_info_part_number").value = data.partnumber
