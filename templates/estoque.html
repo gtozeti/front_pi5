@@ -481,23 +481,23 @@
                                 <div class="form-row justify-content-center">
                                     <div class="form-group col-md-6">
                                         <label for="att_info_desc_peca">Descrição da peça</label>
-                                        <input type="text" class="form-control" id="att_info_desc_peca" name="att_info_desc_peca"
-                                            ></input>
+                                        <input type="text" class="form-control" id="att_info_desc_peca"
+                                            name="att_info_desc_peca"></input>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="att_info_part_number">Part Number</label>
                                         <input id="att_info_part_number" name="att_info_part_number" type="text"
-                                            class="form-control" >
+                                            class="form-control">
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="att_info_locacao">Locação</label>
-                                        <input type="text" class="form-control" id="att_info_locacao" name="att_info_locacao"
-                                            >
+                                        <input type="text" class="form-control" id="att_info_locacao"
+                                            name="att_info_locacao">
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="att_info_modelo_carro">Modelo do carro</label>
                                         <input type="text" class="form-control" id="att_info_modelo_carro"
-                                            name="att_info_modelo_carro" >
+                                            name="att_info_modelo_carro">
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="att_info_sublocacao">Sublocação</label>
@@ -506,7 +506,8 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="att_info_estado">Estado</label>
-                                        <select name="att_info_estado" id="att_info_estado" name="att_info_estado" class="form-control">
+                                        <select name="att_info_estado" id="att_info_estado" name="att_info_estado"
+                                            class="form-control">
                                             <option value="" disabled selected>Selecione um estado</option>
                                             <option value="Active">Active</option>
                                             <option value="Inactive">Inactive</option>
@@ -567,6 +568,30 @@
 
                 </div>
             </div>
+
+            <!-- Modal Delete da Peça -->
+            <div class="modal fade" id="exampleModalEdit2" tabindex="-1" role="dialog" aria-labelledby="exampleModalEdit2"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modal-info-peca">Edições da peça</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                           
+
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
 
 
@@ -628,7 +653,7 @@
                     var tabela = $('#myTable').DataTable();
                     data.content.forEach(element => {
                         info.push({
-                            'id': element.id, 'part_number': element.partnumber, 'desc_peca': element.name, 'fabricante': '<div class= "d-flex"><div class="mr-auto p-2">' + element.manufacturer + '</div><div class="p-2"><button type="button" class="btn  btn-sm btn-info btn-edit" onclick="get_att()"data-toggle="modal"data-target="#exampleModalEdit"><i class="fas fa-edit"></i></div><div class="p-2"></button><button type="button" class="btn  btn-sm btn-danger btn-delete" data-toggle="modal"data-target="#exampleModalDelete"><i class="fas fa-trash"></i></button></div></div>'
+                            'id': element.id, 'part_number': element.partnumber, 'desc_peca': element.name, 'fabricante': '<div class= "d-flex"><div class="mr-auto p-2">' + element.manufacturer + '</div><div class="p-2"><button type="button" id="' + element.id + '" class="btn  btn-sm btn-info btn-edit" onclick="get_att(this.id)"data-toggle="modal"data-target="#exampleModalEdit"><i class="fas fa-edit"></i></div><div class="p-2"></button><button type="button" class="btn  btn-sm btn-danger btn-delete" data-toggle="modal" data-target="#exampleModalEdit2"><i class="fas fa-trash"></i></button></div></div>'
                         })
                     });
                     // Inserir os dados na tabela
@@ -671,12 +696,12 @@
             $('#myTable').on('click', 'tbody td:last-child', function () {
                 var row = table.row($(this)).data();
                 localStorage.setItem('id', row.id);
+                console.log(localStorage.getItem('id'))
             });
         });
     </script>
 
     <script src="{{ url_for('static', filename='js/estoque.js')}}"></script>
-
 </body>
 
 </html>

@@ -231,6 +231,80 @@ form_info_out.addEventListener("submit", (e) => {
 
 })
 
+//  Função de atualização de peça 
+let form_edit = document.getElementById("dadosFormEdit")
+form_edit.addEventListener("submit", (e) => {
+
+  e.preventDefault()
+
+  let name = document.getElementById("att_info_desc_peca").value
+  let partnumber = document.getElementById("att_info_part_number").value
+  // let locacao = document.getElementById("att_info_locacao").value
+  let carModel = document.getElementById("att_info_modelo_carro").value
+  // let sublocacao = document.getElementById("att_info_sublocacao").value
+  let state = document.getElementById("att_info_estado").value
+  let weight = document.getElementById("att_info_peso").value
+  // let ncm = document.getElementById("att_info_ncm").value
+  let subsystem = document.getElementById("att_info_subsistema").value
+  let manufacturer = document.getElementById("att_info_fabricante").value
+  let axleSide = document.getElementById("att_info_eixo").value
+  // let lado = document.getElementById("att_lado").value
+
+  let obj = {
+    "name": name,
+    "partnumber": partnumber,
+    // "locacao": locacao,
+    "carModel": carModel,
+    // "sublocacao": sublocacao,
+    "state": state,
+    "weight": weight,
+    "subsystem": subsystem,
+    "manufacturer": manufacturer,
+    "axleSide": axleSide,
+    // "lado": lado
+  }
+
+  console.log('sdjkahfg')
+
+  let id = localStorage.getItem('id')
+
+  const url = `http://179.209.195.115:157/api/v1/part/update?id=${id}`
+  let auth = localStorage.getItem('auth')
+
+  const fetchOption = {
+    method: 'PUT',
+    body: JSON.stringify(obj),
+    headers: {
+      "Content-Type": "application/json",
+      'Accept': '*/*',
+      "Authorization": `Bearer ${auth}`
+    },
+    mode: "cors",
+  }
+
+
+  fetch(url, fetchOption)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Erro ao fazer a requisição: ' + response.status);
+      }
+      return response.json();
+    })
+    .then(data => {
+
+      window.alert("Item atualizado com sucesso")
+      $('#exampleModalEdit').modal('hide');
+      location.reload()
+
+    })
+    .catch(error => {
+      window.alert("Erro ao atualizar o item!")
+      console.error('Ocorreu um erro:', error);
+    });
+
+
+})
+
 function get_info(id, auth) {
 
   const url = `http://179.209.195.115:157/api/v1/part/find?id=${id}`
@@ -273,9 +347,9 @@ function get_info(id, auth) {
     });
 }
 
-function get_att() {
+function get_att(id) {
 
-  let id = localStorage.getItem('id')
+ 
   let auth = localStorage.getItem('auth')
 
   const url = `http://179.209.195.115:157/api/v1/part/find?id=${id}`
