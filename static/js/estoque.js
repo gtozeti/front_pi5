@@ -273,6 +273,51 @@ function get_info(id, auth) {
     });
 }
 
+function get_att() {
+
+  let id = localStorage.getItem('id')
+  let auth = localStorage.getItem('auth')
+
+  const url = `http://179.209.195.115:157/api/v1/part/find?id=${id}`
+
+  const fetchOption = {
+    method: 'GET',
+    headers: {
+      "Content-Type": "application/json",
+      'Accept': '*/*',
+      "Authorization": `Bearer ${auth}`
+    },
+    mode: "cors",
+  }
+
+  fetch(url, fetchOption)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Erro ao fazer a requisição: ' + response.status);
+      }
+      return response.json();
+    })
+    .then(data => {
+
+      document.getElementById("att_info_desc_peca").value = data.name
+      document.getElementById("att_info_part_number").value = data.partnumber
+      document.getElementById("att_info_locacao").value = "ççç"
+      document.getElementById("att_info_modelo_carro").value = data.carModel
+      document.getElementById("att_info_sublocacao").value = "ççç"
+      document.getElementById("att_info_estado").value = data.state
+      document.getElementById("att_info_peso").value = data.weight
+      document.getElementById("att_info_subsistema").value = data.subsystem
+      document.getElementById("att_info_fabricante").value = data.manufacturer
+      document.getElementById("att_info_eixo").value = data.axleSide
+      document.getElementById("att_info_lado").value = "R"
+
+    })
+    .catch(error => {
+      window.alert("Erro na busca de informações da peça!")
+      console.error('Ocorreu um erro:', error);
+    });
+}
+
 function att(e) {
 
 

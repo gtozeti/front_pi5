@@ -128,14 +128,14 @@
             </div>
 
             <div class="col-md-auto">
-                <table id="myTable" class="table table-light">
+                <table id="myTable" class="table table-light table-bordered">
                     <thead>
                         <tr>
                             <th>ID</th>
                             <th>Part Number</th>
                             <th>Descrição da peça</th>
                             <th>Fabricante</th>
-                            <th>Ação</th>
+                            <!-- <th>Ação</th> -->
                         </tr>
 
                     </thead>
@@ -144,6 +144,7 @@
                     </tbody>
                 </table>
             </div>
+
 
 
 
@@ -464,11 +465,113 @@
                 </div>
             </div>
 
+            <!-- Modal Att da Peça -->
+            <div class="modal fade" id="exampleModalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalEdit"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modal-info-peca">Edições da peça</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form enctype="multipart/form-data" id="dadosFormEdit">
+                                <div class="form-row justify-content-center">
+                                    <div class="form-group col-md-6">
+                                        <label for="att_info_desc_peca">Descrição da peça</label>
+                                        <input type="text" class="form-control" id="att_info_desc_peca" name="att_info_desc_peca"
+                                            ></input>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="att_info_part_number">Part Number</label>
+                                        <input id="att_info_part_number" name="att_info_part_number" type="text"
+                                            class="form-control" >
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="att_info_locacao">Locação</label>
+                                        <input type="text" class="form-control" id="att_info_locacao" name="att_info_locacao"
+                                            >
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="att_info_modelo_carro">Modelo do carro</label>
+                                        <input type="text" class="form-control" id="att_info_modelo_carro"
+                                            name="att_info_modelo_carro" >
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="att_info_sublocacao">Sublocação</label>
+                                        <input type="text" class="form-control" id="att_info_sublocacao"
+                                            name="att_info_sublocacao">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="att_info_estado">Estado</label>
+                                        <select name="att_info_estado" id="att_info_estado" name="att_info_estado" class="form-control">
+                                            <option value="" disabled selected>Selecione um estado</option>
+                                            <option value="Active">Active</option>
+                                            <option value="Inactive">Inactive</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="att_info_peso">Peso</label>
+                                        <input type="text" class="form-control" name="att_info_peso" id="att_info_peso">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="att_info_ncm">NCM</label>
+                                        <input type="text" name="att_info_ncm" class="form-control" id="att_info_ncm">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="att_info_subsistema">Subsistema</label>
+                                        <input type="text" class="form-control" id="att_info_subsistema"
+                                            name="att_info_subsistema">
+                                    </div>
+
+                                    <div class="form-group col-md-3">
+                                        <label for="att_info_fabricante">Fabricante</label>
+                                        <input type="text" class="form-control" id="att_info_fabricante"
+                                            name="att_info_fabricante">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="att_info_quantidade">Quantidade</label>
+                                        <input type="text" class="form-control" id="att_info_quantidade"
+                                            name="att_info_quantidade">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="att_info_eixo">Eixo</label>
+                                        <select name="att_info_eixo" id="att_info_eixo" class="form-control">
+                                            <option value="" disabled selected>Selecione o eixo</option>
+                                            <option value="Front">Front</option>
+                                            <option value="Rear">Rear</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="att_info_lado">Lado</label>
+                                        <select name="att_info_lado" id="att_info_lado" class="form-control">
+                                            <option value="" disabled selected>Selecione o lado</option>
+                                            <option value="L">Esquerdo</option>
+                                            <option value="R">Direito</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 my-1">
+
+                                        <button type="submit"
+                                            class="btn btn-primary btn-block btn-cadastrar shadow-none">Atualizar</button>
+                                    </div>
+                            </form>
 
 
 
 
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
+
+
+
+    </div>
     </div>
 
 
@@ -497,13 +600,10 @@
                     { data: 'desc_peca' },
                     { data: 'fabricante' }
                 ],
-                "columnDefs": [{
-                    "targets": 4,
-                    "data": "download_link",
-                    "render": function (data, type, row, meta) {
-                        return '<a href="' + data + '">Download</a><a href="' + data + '">Download</a>';
-                    }
-                }]
+                "columnDefs": [
+                    { "targets": 1, "width": "20%" },
+                    { "targets": 2, "width": "40%" },
+                ]
             });
 
             const url = 'http://179.209.195.115:157/api/v1/part/all'
@@ -527,7 +627,9 @@
                     let info = []
                     var tabela = $('#myTable').DataTable();
                     data.content.forEach(element => {
-                        info.push({ 'id': element.id, 'part_number': element.partnumber, 'desc_peca': element.name, 'fabricante': element.manufacturer })
+                        info.push({
+                            'id': element.id, 'part_number': element.partnumber, 'desc_peca': element.name, 'fabricante': '<div class= "d-flex"><div class="mr-auto p-2">' + element.manufacturer + '</div><div class="p-2"><button type="button" class="btn  btn-sm btn-info btn-edit" onclick="get_att()"data-toggle="modal"data-target="#exampleModalEdit"><i class="fas fa-edit"></i></div><div class="p-2"></button><button type="button" class="btn  btn-sm btn-danger btn-delete" data-toggle="modal"data-target="#exampleModalDelete"><i class="fas fa-trash"></i></button></div></div>'
+                        })
                     });
                     // Inserir os dados na tabela
                     tabela.rows.add(info).draw();
@@ -559,16 +661,17 @@
         $(document).ready(function () {
             var table = $('#myTable').DataTable();
 
-            $('#myTable').on('click', 'tbody tr', function () {
+            $('#myTable').on('click', 'tbody td:first-child', function () {
                 var row = table.row($(this)).data();
                 $('#modal-info').modal('show')
                 get_info(row.id, localStorage.getItem('auth'))
                 localStorage.setItem('id', row.id);
-                // window.location.href = 'http://localhost:8080/tela-tabela-cliente'
             });
 
-
-
+            $('#myTable').on('click', 'tbody td:last-child', function () {
+                var row = table.row($(this)).data();
+                localStorage.setItem('id', row.id);
+            });
         });
     </script>
 
