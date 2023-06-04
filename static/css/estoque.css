@@ -112,7 +112,7 @@ i {
   background-color: #464C47;
 }
 
-.linha>tr:hover {
+.linha>tr>td:nth-child(1):hover{
   color: white;
   cursor: pointer;
   background-color: #A43131;

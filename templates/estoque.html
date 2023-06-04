@@ -101,9 +101,9 @@
                     Usuário: {{session.name}}
                 </button>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#">Menu 1</a>
+                    <!-- <a class="dropdown-item" href="#">Menu 1</a>
                     <a class="dropdown-item" href="#">Menu 2</a>
-                    <div class="dropdown-divider"></div>
+                    <div class="dropdown-divider"></div>-->
 
 
                     <a class="dropdown-item" href="/logout">Sair <i class="fa fa-solid fa-power-off"></i></a>
@@ -671,7 +671,7 @@
                     var tabela = $('#myTable').DataTable();
                     data.content.forEach(element => {
                         info.push({
-                            'id': element.id, 'part_number': element.partnumber, 'desc_peca': element.name, 'fabricante': '<div class= "d-flex"><div class="mr-auto p-2">' + element.manufacturer + '</div><div class="p-2"><button type="button" id="' + element.id + '" class="btn  btn-sm btn-info btn-edit" onclick="get_att(this.id)"data-toggle="modal"data-target="#exampleModalEdit"><i class="fas fa-edit"></i></div><div class="p-2"></button><button id="' + element.id + '" onclick="get_att(this.id)"  type="button" class="btn  btn-sm btn-danger btn-delete" data-toggle="modal" data-target="#exampleModalDelete"><i class="fas fa-trash"></i></button></div></div>'
+                            'id': element.id, 'part_number': element.partnumber, 'desc_peca': element.name, 'fabricante': '<div class= "d-flex"><div class="mr-auto p-2">' + element.manufacturer + '{% if session.accessType == "ADMIN" or session.accessType == "ANALYST" %}</div><div class="p-2"><button type="button" id="' + element.id + '" class="btn  btn-sm btn-info btn-edit" onclick="get_att(this.id)"data-toggle="modal"data-target="#exampleModalEdit"><i class="fas fa-edit"></i></div><div class="p-2"></button><button id="' + element.id + '" onclick="get_att(this.id)"  type="button" class="btn  btn-sm btn-danger btn-delete" data-toggle="modal" data-target="#exampleModalDelete"><i class="fas fa-trash"></i></button></div></div>{% endif %}'
                         })
                     });
                     // Inserir os dados na tabela
@@ -704,7 +704,7 @@
         $(document).ready(function () {
             var table = $('#myTable').DataTable();
 
-            $('#myTable').on('click', 'tbody td:first-child', function () {
+            $('#myTable').on('click', 'tbody td:nth-child(1)', function () {
                 var row = table.row($(this)).data();
                 $('#modal-info').modal('show')
                 get_info(row.id, localStorage.getItem('auth'))
@@ -714,7 +714,6 @@
             $('#myTable').on('click', 'tbody td:last-child', function () {
                 var row = table.row($(this)).data();
                 localStorage.setItem('id', row.id);
-                console.log(localStorage.getItem('id'))
             });
         });
     </script>
