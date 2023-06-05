@@ -121,10 +121,21 @@
                 </div>
                 {% if session.accessType == "ADMIN" or session.accessType == "ANALYST" %}
                 <div class="col-md-auto">
-                    <button type="button" class="btn  btn-secondary btn-cadastro" data-toggle="modal"
-                        data-target="#exampleModal"><i class="fa fa-solid fa-plus"></i>Cadastrar peça</button>
+                    <button type="button" onclick="get_sub_loc()" class="btn btn-sm btn-secondary btn-cadastro"
+                        data-toggle="modal" data-target="#exampleModal"><i class="fa fa-solid fa-plus"></i>Cadastrar
+                        peça</button>
+                </div>
+                <div class="col-md-auto">
+                    <button type="button" class="btn btn-sm  btn-primary" data-toggle="modal"
+                        data-target="#modal_subloc"><i class="fas fa-sign-in-alt"></i>Cadastro de locação/sublocação
+                    </button>
                 </div>
                 {% endif %}
+                <div class="col-md-auto">
+                    <button type="button" class="btn btn-sm  btn-success" data-toggle="modal"
+                        data-target="#modal_entrada"><i class="fas fa-sign-in-alt"></i>Entrada de peça
+                    </button>
+                </div>
             </div>
 
             <div class="col-md-auto">
@@ -162,42 +173,67 @@
                         <div class="modal-body">
                             <form enctype="multipart/form-data" id="dadosForm">
                                 <div class="form-row justify-content-center">
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-4">
                                         <label for="desc_peca">Descrição da peça</label>
                                         <input type="text" class="form-control" id="desc_peca" name="desc_peca"
                                             placeholder="Digite o nome da peça"></input>
                                     </div>
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-4">
                                         <label for="part_number">Part Number</label>
                                         <input id="part_number" name="part_number" type="text" class="form-control"
                                             placeholder="Digite o part number da peça">
                                     </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="locacao">Locação</label>
-                                        <input type="text" class="form-control" id="locacao" name="locacao"
-                                            placeholder="Digite a locação da peça">
-                                    </div>
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-4">
                                         <label for="modelo_carro">Modelo do carro</label>
                                         <input type="text" class="form-control" id="modelo_carro" name="modelo_carro"
                                             placeholder="Digite o modelo do carro">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="sublocacao">Sublocação</label>
-                                        <input type="text" class="form-control" id="sublocacao" name="sublocacao"
-                                            placeholder="Digite a sublocação">
+                                        <label for="locacao">Locação</label>
+                                        <!-- <input type="text" class="form-control" id="locacao" name="locacao"
+                                            placeholder="Digite a locação da peça"> -->
+                                        <!-- <select name="locacao" id="locacao" class="form-control">
+                                            <option value="" disabled selected>Selecione uma locação ou crie uma nova
+                                        </select> -->
+                                        <input class="form-control" list="listaLoc" id="DataListLoc"
+                                            placeholder="Digite uma locação ou adicione uma nova...">
+                                        <datalist id="listaLoc">
+                                            <!-- <option value="San Francisco">
+                                            <option value="New York">
+                                            <option value="Seattle">
+                                            <option value="Los Angeles">
+                                            <option value="Chicago"> -->
+                                        </datalist>
                                     </div>
+
                                     <div class="form-group col-md-6">
+                                        <label for="sublocacao">Sublocação</label>
+                                        <!-- <input type="text" class="form-control" id="sublocacao" name="sublocacao"
+                                            placeholder="Digite a sublocação"> -->
+                                        <!-- <select name="sublocacao" id="sublocacao" class="form-control">
+                                            <option value="" disabled selected>Selecione uma sublocação ou crie uma nova
+                                        </select> -->
+                                        <input class="form-control" list="listaSubLoc" id="DataListSubLoc"
+                                            placeholder="Digite uma sublocação ou adicione uma nova...">
+                                        <datalist id="listaSubLoc">
+                                            <!-- <option value="San Francisco">
+                                            <option value="New York">
+                                            <option value="Seattle">
+                                            <option value="Los Angeles">
+                                            <option value="Chicago"> -->
+                                        </datalist>
+                                    </div>
+                                    <!-- <div class="form-group col-md-6">
                                         <label for="estado">Estado</label>
                                         <select name="estado_peca" id="estado" name="estado" class="form-control">
                                             <option value="" disabled selected>Selecione um estado</option>
                                             <option value="Active">Active</option>
                                             <option value="Inactive">Inactive</option>
                                         </select>
-                                    </div>
+                                    </div> -->
                                     <div class="form-group col-md-3">
                                         <label for="peso">Peso</label>
-                                        <input type="text" class="form-control" name="peso" id="peso"
+                                        <input type="number" min="1" step="0.01" class="form-control" name="peso" id="peso"
                                             placeholder="Digite o peso">
                                     </div>
                                     <div class="form-group col-md-3">
@@ -218,7 +254,7 @@
                                     </div>
                                     <div class="form-group col-md-3">
                                         <label for="quantidade">Quantidade</label>
-                                        <input type="text" class="form-control" id="quantidade" name="quantidade"
+                                        <input type="number" min="1" class="form-control" id="quantidade" name="quantidade"
                                             placeholder="Digite a quantidade">
                                     </div>
                                     <div class="form-group col-md-3">
@@ -250,6 +286,53 @@
 
 
 
+                                    <div class="col-md-6 my-1">
+
+                                        <button type="submit"
+                                            class="btn btn-primary btn-block btn-cadastrar shadow-none">Cadastrar</button>
+                                    </div>
+                                    <div class="col-md-6 my-1">
+
+                                        <button type="reset"
+                                            class="btn btn-secondary btn-block btn-cadastrar shadow-none">Limpar</button>
+                                    </div>
+
+
+
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal cadastro de Locação e Sublocação -->
+            <div class="modal fade" id="modal_subloc" tabindex="-1" role="dialog" aria-labelledby="modal_sublocLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-md" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modal_sublocLabel">Cadastro de locação ou sublocação</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form enctype="multipart/form-data" id="dadosFormSubLoc">
+                                <div class="form-row justify-content-center">
+                                    <div class="form-group col-md-12">
+                                        <label for="desc_loc">Locação</label>
+                                        <input type="text" class="form-control" id="desc_loc" name="desc_loc"
+                                            placeholder="Digite o nome da locação"></input>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="desc_subloc">Sublocação</label>
+                                        <input id="desc_subloc" name="desc_subloc" type="text" class="form-control"
+                                            placeholder="Digite o nome da sublocação">
+                                    </div>
+                                    
+                                
                                     <div class="col-md-6 my-1">
 
                                         <button type="submit"
@@ -595,14 +678,13 @@
 
                                 <div class="col-md-6 my-1">
 
-                                    <button type="submit"
-                                        class="btn btn-danger btn-block shadow-none">Deletar</button>
+                                    <button type="submit" class="btn btn-danger btn-block shadow-none">Deletar</button>
                                 </div>
 
                                 <div class="col-md-6 my-1">
 
-                                    <button type="button"
-                                        class="btn btn-primary btn-block btn-cadastrar shadow-none" data-dismiss="modal" aria-label="Close">Cancelar</button>
+                                    <button type="button" class="btn btn-primary btn-block btn-cadastrar shadow-none"
+                                        data-dismiss="modal" aria-label="Close">Cancelar</button>
                                 </div>
                             </div>
                         </form>
@@ -683,15 +765,18 @@
 
             openNav(true)
 
-            fetch('/get_session_data')  // Fazer uma solicitação para obter o valor da sessão
-                .then(response => response.json())
-                .then(data => {
-                    localStorage.setItem('auth', data.auth);  // Armazenar o valor da sessão no Local Storage
+            if (localStorage.getItem('auth') == '') {
 
-                })
-                .catch(error => {
-                    console.error('Erro ao obter valor da sessão:', error);
-                });
+                fetch('/get_session_data')  // Fazer uma solicitação para obter o valor da sessão
+                    .then(response => response.json())
+                    .then(data => {
+                        localStorage.setItem('auth', data.auth);  // Armazenar o valor da sessão no Local Storage
+
+                    })
+                    .catch(error => {
+                        console.error('Erro ao obter valor da sessão:', error);
+                    });
+            }
 
         });
 

@@ -56,12 +56,13 @@ form.addEventListener("submit", (e) => {
   // let locacao = document.getElementById("locacao").value
   let carModel = document.getElementById("modelo_carro").value
   // let sublocacao = document.getElementById("sublocacao").value
-  let state = document.getElementById("estado").value
+  // let state = document.getElementById("estado").value
   let weight = document.getElementById("peso").value
   let subsystem = document.getElementById("subsistema").value
   let manufacturer = document.getElementById("fabricante").value
   let axleSide = document.getElementById("eixo").value
   // let lado = document.getElementById("lado").value
+  let qtd = document.getElementById("quantidade").value
 
   let obj = {
     "name": name,
@@ -69,12 +70,17 @@ form.addEventListener("submit", (e) => {
     // "locacao": locacao,
     "carModel": carModel,
     // "sublocacao": sublocacao,
-    "state": state,
+    // "state": state,
     "weight": weight,
     "subsystem": subsystem,
     "manufacturer": manufacturer,
     "axleSide": axleSide,
-    // "lado": lado
+    // "lado": lado,
+    "minimumStock": {
+      "threeStages": qtd,
+      "sixStages": qtd,
+      "nineStages": qtd
+    }
   }
 
   const url = 'http://179.209.195.115:157/api/v1/part/create'
@@ -305,7 +311,7 @@ form_edit.addEventListener("submit", (e) => {
 
 })
 
-//  Função de atualização de peça 
+//  Função de delete de peça 
 let form_delete = document.getElementById("dadosFormDelete")
 form_delete.addEventListener("submit", (e) => {
 
@@ -345,6 +351,7 @@ form_delete.addEventListener("submit", (e) => {
 
 })
 
+//  Função de informações de peça 
 function get_info(id, auth) {
 
   const url = `http://179.209.195.115:157/api/v1/part/find?id=${id}`
@@ -374,11 +381,12 @@ function get_info(id, auth) {
       document.getElementById("info_modelo_carro").value = data.carModel
       document.getElementById("info_sublocacao").value = ""
       document.getElementById("info_estado").value = data.state
+      document.getElementById("info_quantidade").value = data.minimumStock.threeStages
       document.getElementById("info_peso").value = data.weight
       document.getElementById("info_subsistema").value = data.subsystem
       document.getElementById("info_fabricante").value = data.manufacturer
       document.getElementById("info_eixo").value = data.axleSide
-      document.getElementById("info_lado").value = "R ou L"
+      document.getElementById("info_lado").value = "Esquerdo"
 
     })
     .catch(error => {
@@ -389,7 +397,7 @@ function get_info(id, auth) {
 
 function get_att(id) {
 
- 
+
   let auth = localStorage.getItem('auth')
 
   const url = `http://179.209.195.115:157/api/v1/part/find?id=${id}`
@@ -413,7 +421,7 @@ function get_att(id) {
     })
     .then(data => {
 
-      document.getElementById("info_delete").innerHTML  = `${data.partnumber} - ${data.name} - ${data.manufacturer}`
+      document.getElementById("info_delete").innerHTML = `${data.partnumber} - ${data.name} - ${data.manufacturer}`
 
 
       document.getElementById("att_info_desc_peca").value = data.name
@@ -425,6 +433,7 @@ function get_att(id) {
       document.getElementById("att_info_peso").value = data.weight
       document.getElementById("att_info_subsistema").value = data.subsystem
       document.getElementById("att_info_fabricante").value = data.manufacturer
+      document.getElementById("att_info_quantidade").value = data.minimumStock.threeStages
       document.getElementById("att_info_eixo").value = data.axleSide
       document.getElementById("att_info_lado").value = "R"
 
@@ -480,3 +489,38 @@ function hide() {
   entrada.setAttribute("hidden", true)
 }
 
+// Função para trazer as locações e sublocações
+function get_sub_loc() {
+
+  const url = `http://179.209.195.115:157/api/v1/part/delete?id=${id}`
+  let auth = localStorage.getItem('auth')
+
+  const fetchOption = {
+    method: 'GET',
+    headers: {
+      "Authorization": `Bearer ${auth}`
+    },
+    mode: "cors",
+  }
+
+
+  fetch(url, fetchOption)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Erro ao fazer a requisição: ' + response.status);
+      }
+      return response.json();
+    })
+    .then(data => {
+
+      // window.alert("Item deletado com sucesso")
+      // $('#exampleModalDelete').modal('hide');
+      // location.reload()
+
+    })
+    .catch(error => {
+      console.error('Ocorreu ao buscar as locações e sublocações:', error);
+    });
+
+
+}
