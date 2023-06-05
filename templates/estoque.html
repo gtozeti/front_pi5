@@ -106,7 +106,8 @@
                     <div class="dropdown-divider"></div>-->
 
 
-                    <a class="dropdown-item" href="/logout">Sair <i class="fa fa-solid fa-power-off"></i></a>
+                    <a class="dropdown-item" onclick="localStorage.setItem('auth','')" href="/logout">Sair <i
+                            class="fa fa-solid fa-power-off"></i></a>
                 </div>
             </div>
 
@@ -122,12 +123,12 @@
                 {% if session.accessType == "ADMIN" or session.accessType == "ANALYST" %}
                 <div class="col-md-auto">
                     <button type="button" onclick="get_sub_loc()" class="btn btn-sm btn-secondary btn-cadastro"
-                        data-toggle="modal" data-target="#exampleModal"><i class="fa fa-solid fa-plus"></i>Cadastrar
+                        data-toggle="modal" data-target="#exampleModal"><i class="fa  fa-plus"></i>Cadastrar
                         peça</button>
                 </div>
                 <div class="col-md-auto">
                     <button type="button" class="btn btn-sm  btn-primary" data-toggle="modal"
-                        data-target="#modal_subloc"><i class="fas fa-sign-in-alt"></i>Cadastro de locação/sublocação
+                        data-target="#modal_subloc"><i class="fa  fa-plus"></i>Cadastro de locação/sublocação
                     </button>
                 </div>
                 {% endif %}
@@ -192,36 +193,36 @@
                                         <label for="locacao">Locação</label>
                                         <!-- <input type="text" class="form-control" id="locacao" name="locacao"
                                             placeholder="Digite a locação da peça"> -->
-                                        <!-- <select name="locacao" id="locacao" class="form-control">
-                                            <option value="" disabled selected>Selecione uma locação ou crie uma nova
-                                        </select> -->
-                                        <input class="form-control" list="listaLoc" id="DataListLoc"
+                                        <select name="locacao" id="locacao" class="form-control">
+                                            <option value="" disabled selected>Selecione uma locação
+                                        </select>
+                                        <!-- <input class="form-control" list="listaLoc" id="DataListLoc"
                                             placeholder="Digite uma locação ou adicione uma nova...">
                                         <datalist id="listaLoc">
-                                            <!-- <option value="San Francisco">
+                                            <option value="San Francisco">
                                             <option value="New York">
                                             <option value="Seattle">
                                             <option value="Los Angeles">
-                                            <option value="Chicago"> -->
-                                        </datalist>
+                                            <option value="Chicago">
+                                        </datalist> -->
                                     </div>
 
                                     <div class="form-group col-md-6">
                                         <label for="sublocacao">Sublocação</label>
                                         <!-- <input type="text" class="form-control" id="sublocacao" name="sublocacao"
                                             placeholder="Digite a sublocação"> -->
-                                        <!-- <select name="sublocacao" id="sublocacao" class="form-control">
-                                            <option value="" disabled selected>Selecione uma sublocação ou crie uma nova
-                                        </select> -->
-                                        <input class="form-control" list="listaSubLoc" id="DataListSubLoc"
+                                        <select name="sublocacao" id="sublocacao" class="form-control">
+                                            <option value="" disabled selected>Selecione uma sublocação
+                                        </select>
+                                        <!-- <input class="form-control" list="listaSubLoc" id="DataListSubLoc"
                                             placeholder="Digite uma sublocação ou adicione uma nova...">
                                         <datalist id="listaSubLoc">
-                                            <!-- <option value="San Francisco">
+                                            <option value="San Francisco">
                                             <option value="New York">
                                             <option value="Seattle">
                                             <option value="Los Angeles">
-                                            <option value="Chicago"> -->
-                                        </datalist>
+                                            <option value="Chicago">
+                                        </datalist> -->
                                     </div>
                                     <!-- <div class="form-group col-md-6">
                                         <label for="estado">Estado</label>
@@ -233,8 +234,8 @@
                                     </div> -->
                                     <div class="form-group col-md-3">
                                         <label for="peso">Peso</label>
-                                        <input type="number" min="1" step="0.01" class="form-control" name="peso" id="peso"
-                                            placeholder="Digite o peso">
+                                        <input type="number" min="1" step="0.01" class="form-control" name="peso"
+                                            id="peso" placeholder="Digite o peso">
                                     </div>
                                     <div class="form-group col-md-3">
                                         <label for="ncm">NCM</label>
@@ -254,8 +255,8 @@
                                     </div>
                                     <div class="form-group col-md-3">
                                         <label for="quantidade">Quantidade</label>
-                                        <input type="number" min="1" class="form-control" id="quantidade" name="quantidade"
-                                            placeholder="Digite a quantidade">
+                                        <input type="number" min="1" class="form-control" id="quantidade"
+                                            name="quantidade" placeholder="Digite a quantidade">
                                     </div>
                                     <div class="form-group col-md-3">
                                         <label for="eixo">Eixo</label>
@@ -331,8 +332,8 @@
                                         <input id="desc_subloc" name="desc_subloc" type="text" class="form-control"
                                             placeholder="Digite o nome da sublocação">
                                     </div>
-                                    
-                                
+
+
                                     <div class="col-md-6 my-1">
 
                                         <button type="submit"
@@ -702,7 +703,12 @@
 
     <!-- Script de carregar a tabela  -->
     <script>
+
+
+
         $(document).ready(function () {
+
+
             $('#myTable').DataTable({
                 language: {
                     paginate: {
@@ -731,52 +737,91 @@
                 ]
             });
 
-            const url = 'http://179.209.195.115:157/api/v1/part/all'
-
-            let auth = localStorage.getItem('auth')
-
-            const fetchOption = {
-                method: 'GET',
-                headers: {
-                    "Content-Type": "application/json",
-                    'Accept': '*/*',
-                    "Authorization": `Bearer ${auth}`
-                },
-                mode: "cors",
-            }
-
-
-            fetch(url, fetchOption)
-                .then(response => response.json())
-                .then(data => {
-                    let info = []
-                    var tabela = $('#myTable').DataTable();
-                    data.content.forEach(element => {
-                        info.push({
-                            'id': element.id, 'part_number': element.partnumber, 'desc_peca': element.name, 'fabricante': '<div class= "d-flex"><div class="mr-auto p-2">' + element.manufacturer + '{% if session.accessType == "ADMIN" or session.accessType == "ANALYST" %}</div><div class="p-2"><button type="button" id="' + element.id + '" class="btn  btn-sm btn-info btn-edit" onclick="get_att(this.id)"data-toggle="modal"data-target="#exampleModalEdit"><i class="fas fa-edit"></i></div><div class="p-2"></button><button id="' + element.id + '" onclick="get_att(this.id)"  type="button" class="btn  btn-sm btn-danger btn-delete" data-toggle="modal" data-target="#exampleModalDelete"><i class="fas fa-trash"></i></button></div></div>{% endif %}'
-                        })
-                    });
-                    // Inserir os dados na tabela
-                    tabela.rows.add(info).draw();
-                })
-                .catch(error => {
-                    console.error('Ocorreu um erro em carregar os dados:', error);
-                });
-
-            openNav(true)
-
             if (localStorage.getItem('auth') == '') {
 
-                fetch('/get_session_data')  // Fazer uma solicitação para obter o valor da sessão
+                fetch('/get_session_data')  // Fazer uma solicitação para obter o valor da sessão 
                     .then(response => response.json())
                     .then(data => {
                         localStorage.setItem('auth', data.auth);  // Armazenar o valor da sessão no Local Storage
+                        let url = 'http://179.209.195.115:157/api/v1/part/all'
+
+                        let auth = localStorage.getItem('auth')
+
+                        let fetchOption = {
+                            method: 'GET',
+                            headers: {
+                                "Content-Type": "application/json",
+                                'Accept': '*/*',
+                                "Authorization": `Bearer ${auth}`
+                            },
+                            mode: "cors",
+                        }
+
+
+                        fetch(url, fetchOption)
+                            .then(response => response.json())
+                            .then(data => {
+                                let info = []
+                                var tabela = $('#myTable').DataTable();
+                                data.content.forEach(element => {
+                                    info.push({
+                                        'id': element.id, 'part_number': element.partnumber, 'desc_peca': element.name, 'fabricante': '<div class= "d-flex"><div class="mr-auto p-2">' + element.manufacturer + '{% if session.accessType == "ADMIN" or session.accessType == "ANALYST" %}</div><div class="p-2"><button type="button" id="' + element.id + '" class="btn  btn-sm btn-info btn-edit" onclick="get_att(this.id)"data-toggle="modal"data-target="#exampleModalEdit"><i class="fas fa-edit"></i></div><div class="p-2"></button><button id="' + element.id + '" onclick="get_att(this.id)"  type="button" class="btn  btn-sm btn-danger btn-delete" data-toggle="modal" data-target="#exampleModalDelete"><i class="fas fa-trash"></i></button></div></div>{% endif %}'
+                                    })
+                                });
+                                // Inserir os dados na tabela
+                                tabela.rows.add(info).draw();
+                            })
+                            .catch(error => {
+                                console.error('Ocorreu um erro em carregar os dados:', error);
+                            });
 
                     })
                     .catch(error => {
                         console.error('Erro ao obter valor da sessão:', error);
                     });
+
+
+            } else {
+                let url = 'http://179.209.195.115:157/api/v1/part/all'
+
+                let auth = localStorage.getItem('auth')
+
+                let fetchOption = {
+                    method: 'GET',
+                    headers: {
+                        "Content-Type": "application/json",
+                        'Accept': '*/*',
+                        "Authorization": `Bearer ${auth}`
+                    },
+                    mode: "cors",
+                }
+
+
+                fetch(url, fetchOption)
+                    .then(response => response.json())
+                    .then(data => {
+                        let info = []
+                        var tabela = $('#myTable').DataTable();
+                        data.content.forEach(element => {
+                            info.push({
+                                'id': element.id, 'part_number': element.partnumber, 'desc_peca': element.name, 'fabricante': '<div class= "d-flex"><div class="mr-auto p-2">' + element.manufacturer + '{% if session.accessType == "ADMIN" or session.accessType == "ANALYST" %}</div><div class="p-2"><button type="button" id="' + element.id + '" class="btn  btn-sm btn-info btn-edit" onclick="get_att(this.id)"data-toggle="modal"data-target="#exampleModalEdit"><i class="fas fa-edit"></i></div><div class="p-2"></button><button id="' + element.id + '" onclick="get_att(this.id)"  type="button" class="btn  btn-sm btn-danger btn-delete" data-toggle="modal" data-target="#exampleModalDelete"><i class="fas fa-trash"></i></button></div></div>{% endif %}'
+                            })
+                        });
+                        // Inserir os dados na tabela
+                        tabela.rows.add(info).draw();
+                    })
+                    .catch(error => {
+                        console.error('Ocorreu um erro em carregar os dados:', error);
+                    });
+
             }
+
+
+
+
+            openNav(true)
+
+
 
         });
 
