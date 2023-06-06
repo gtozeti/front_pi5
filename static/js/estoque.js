@@ -121,36 +121,150 @@ form.addEventListener("submit", (e) => {
 
 })
 
-// Função de entrada peça
-let form_info_in = document.getElementById("moviment_dadosForm_in")
-form_info_in.addEventListener("submit", (e) => {
+//  Função de cadastro de locação 
+let form_loc = document.getElementById("dadosFormSubLoc")
+form_loc.addEventListener("submit", (e) => {
+
   e.preventDefault()
 
-  const url = 'http://127.0.0.1:8000'
-  const endpoint = '/moviment/in/'
-
-  // elementos de entrada
-  let acao_in = document.getElementById("moviment_action_in").value
-  let qtd_in = document.getElementById("moviment_qtd_in").value
+  let loc = document.getElementById("meuSelect").value
+  let subloc = document.getElementById("desc_subloc").value
+  let nova = document.getElementById("inputPersonalizado").value
 
 
-  let obj_in = {
-    "acao": acao_in,
-    "qtd": qtd_in
+  if (loc == 'new') {
+
+    let obj = {
+      "name": nova
+    }
+
+    const url = 'http://179.209.195.115:157/api/v1/location/create'
+    let auth = localStorage.getItem('auth')
+
+    const fetchOption = {
+      method: 'POST',
+      body: JSON.stringify(obj),
+      headers: {
+        "Content-Type": "application/json",
+        'Accept': '*/*',
+        "Authorization": `Bearer ${auth}`
+      },
+      mode: "cors",
+    }
+
+
+    fetch(url, fetchOption)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Erro ao fazer a requisição: ' + response.status);
+        }
+        return response.json();
+      })
+      .then(data => {
+
+        window.alert("Locação cadastrada com sucesso")
+        $('#modal_subloc').modal('hide');
+        location.reload()
+
+      })
+      .catch(error => {
+        window.alert("Erro ao cadastrar a locação!")
+        console.error('Ocorreu um erro:', error);
+      });
+  }
+  else {
+
+    let obj = {
+      "name": subloc
+    }
+
+    const url = `http://179.209.195.115:157/api/v1/sublocation/create?id=${loc}`
+    let auth = localStorage.getItem('auth')
+
+    const fetchOption = {
+      method: 'POST',
+      body: JSON.stringify(obj),
+      headers: {
+        "Content-Type": "application/json",
+        'Accept': '*/*',
+        "Authorization": `Bearer ${auth}`
+      },
+      mode: "cors",
+    }
+
+
+    fetch(url, fetchOption)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Erro ao fazer a requisição: ' + response.status);
+        }
+        return response.json();
+      })
+      .then(data => {
+
+        window.alert("Sublocação cadastrada com sucesso")
+        $('#modal_subloc').modal('hide');
+        location.reload()
+
+      })
+      .catch(error => {
+        window.alert("Erro ao cadastrar a sublocação!")
+        console.error('Ocorreu um erro:', error);
+      });
   }
 
 
+
+
+
+
+
+})
+
+// Função de entrada peça
+let form_info_in = document.getElementById("dadosFormPartEntry")
+form_info_in.addEventListener("submit", (e) => {
+  e.preventDefault()
+
+  const url = 'http://179.209.195.115:157/api/v1/part-entry/create'
+
+
+
+  let userId = localStorage.getItem('user')
+  let partId = document.getElementById("desc_part_entry").value
+  let locationId = document.getElementById("loc_part_entry").value
+  let type = document.getElementById("tipo_part_entry").value
+  let state = document.getElementById("estado_part_entry").value
+  let reason = document.getElementById("motivo_part_entry").value
+
+
+  let obj = {
+    "userId": userId,
+    "partId": partId,
+    "locationId": locationId,
+    "type": type,
+    "reason": reason,
+    "partRequest": {
+      "state": state,
+      "timeInUse": 0
+    }
+  }
+
+  let auth = localStorage.getItem('auth')
+
   const fetchOption = {
-    method: 'PUT',
-    body: JSON.stringify(obj_in),
+    method: 'POST',
+    body: JSON.stringify(obj),
     headers: {
-      "content-type": "application/json",
+      "Content-Type": "application/json",
+      'Accept': '*/*',
+      "Authorization": `Bearer ${auth}`
     },
     mode: "cors",
   }
 
 
-  fetch(url + endpoint + localStorage.getItem("id"), fetchOption)
+  fetch(url, fetchOption)
     .then(response => {
       if (!response.ok) {
         throw new Error('Erro ao fazer a requisição: ' + response.status);
@@ -159,15 +273,15 @@ form_info_in.addEventListener("submit", (e) => {
     })
     .then(data => {
 
-      window.alert("Item registrado com sucesso")
-      $('#modal-info').modal('hide');
-      document.getElementById('moviment_dadosForm_in').setAttribute("hidden", true)
+      window.alert("Entrada registrada com sucesso")
+      $('#modal_entrada-info').modal('hide');
+      // document.getElementById('moviment_dadosForm_in').setAttribute("hidden", true)
       location.reload()
 
     })
     .catch(error => {
       // Lide com o erro ocorrido
-      console.error('Ocorreu um erro:', error);
+      console.error('Ocorreu um erro ao dar entrada na peça:', error);
     });
 
 })
@@ -437,6 +551,10 @@ function get_att(id) {
       document.getElementById("att_info_eixo").value = data.axleSide
       document.getElementById("att_info_lado").value = "R"
 
+      get_sub_loc()
+
+
+
     })
     .catch(error => {
       window.alert("Erro na busca de informações da peça!")
@@ -489,10 +607,10 @@ function hide() {
   entrada.setAttribute("hidden", true)
 }
 
-// Função para trazer as locações e sublocações
-function get_sub_loc() {
+// Função para trazer as locações
+function get_loc() {
 
-  const url = `http://179.209.195.115:157/api/v1/part/delete?id=${id}`
+  const url = `http://179.209.195.115:157/api/v1/location/all`
   let auth = localStorage.getItem('auth')
 
   const fetchOption = {
@@ -513,14 +631,270 @@ function get_sub_loc() {
     })
     .then(data => {
 
-      // window.alert("Item deletado com sucesso")
-      // $('#exampleModalDelete').modal('hide');
-      // location.reload()
+      loc = document.getElementById('locacao')
+
+      while (loc.options.length > 1) {
+        loc.remove(loc.options.length - 1);
+      }
+
+      data.forEach(element => {
+        var novaOpcao = document.createElement('option');
+        novaOpcao.value = element.id;
+        novaOpcao.text = element.name;
+
+        // Adicionar a nova opção ao <select>
+        loc.appendChild(novaOpcao);
+      })
+
+
 
     })
     .catch(error => {
-      console.error('Ocorreu ao buscar as locações e sublocações:', error);
+      console.error('Ocorreu ao buscar as locações:', error);
     });
+
+
+}
+
+// Função para trazer as locações
+function get_loc2() {
+
+  const url = `http://179.209.195.115:157/api/v1/location/all`
+  let auth = localStorage.getItem('auth')
+
+  const fetchOption = {
+    method: 'GET',
+    headers: {
+      "Authorization": `Bearer ${auth}`
+    },
+    mode: "cors",
+  }
+
+
+  fetch(url, fetchOption)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Erro ao fazer a requisição: ' + response.status);
+      }
+      return response.json();
+    })
+    .then(data => {
+
+      loc = document.getElementById('meuSelect')
+      var optionsToKeep = ['new', ''];
+      var options = loc.options;
+
+      // Remover todas as opções, exceto as duas desejadas
+      for (var i = options.length - 1; i >= 0; i--) {
+        var option = options[i];
+        if (optionsToKeep.indexOf(option.value) === -1) {
+          loc.remove(i);
+        }
+      }
+      loc.selectedIndex = 0
+      mostrarCampoPersonalizado(loc)
+
+      data.forEach(element => {
+        var novaOpcao = document.createElement('option');
+        novaOpcao.value = element.id;
+        novaOpcao.text = element.name;
+
+        // Adicionar a nova opção ao <select>
+        loc.appendChild(novaOpcao);
+      })
+
+
+
+    })
+    .catch(error => {
+      console.error('Ocorreu ao buscar as locações:', error);
+    });
+
+
+}
+
+// Função para trazer as locações
+function get_loc3() {
+
+  const url1 = `http://179.209.195.115:157/api/v1/location/all`
+  const url2 = `http://179.209.195.115:157/api/v1/part/all`
+  let auth = localStorage.getItem('auth')
+
+  const fetchOption = {
+    method: 'GET',
+    headers: {
+      "Authorization": `Bearer ${auth}`
+    },
+    mode: "cors",
+  }
+
+  desc_part_entry = document.getElementById('desc_part_entry')
+  loc_part_entry = document.getElementById('loc_part_entry')
+
+  fetch(url1, fetchOption)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Erro ao fazer a requisição: ' + response.status);
+      }
+      return response.json();
+    })
+    .then(data => {
+
+
+      while (loc_part_entry.options.length > 1) {
+        loc_part_entry.remove(loc.options.length - 1);
+      }
+
+      data.forEach(element => {
+        var novaOpcao = document.createElement('option');
+        novaOpcao.value = element.id;
+        novaOpcao.text = element.name;
+
+        // Adicionar a nova opção ao <select>
+        loc_part_entry.appendChild(novaOpcao);
+      })
+
+    })
+    .catch(error => {
+      console.error('Ocorreu ao buscar as locações:', error);
+    });
+
+
+  fetch(url2, fetchOption)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Erro ao fazer a requisição: ' + response.status);
+      }
+      return response.json();
+    })
+    .then(data => {
+
+
+      while (desc_part_entry.options.length > 1) {
+        desc_part_entry.remove(loc.options.length - 1);
+      }
+
+      data.content.forEach(element => {
+        var novaOpcao = document.createElement('option');
+        novaOpcao.value = element.id;
+        novaOpcao.text = element.partnumber + ' - ' + element.name;
+
+        // Adicionar a nova opção ao <select>
+        desc_part_entry.appendChild(novaOpcao);
+      })
+
+    })
+    .catch(error => {
+      console.error('Ocorreu ao buscar as locações:', error);
+    });
+
+
+}
+
+
+// Função para setar as sublocações
+function get_sub(info) {
+
+
+  let subloc = document.getElementById('sublocacao')
+  let id = info
+  const url = `http://179.209.195.115:157/api/v1/location/all`
+  let auth = localStorage.getItem('auth')
+
+  const fetchOption = {
+    method: 'GET',
+    headers: {
+      "Authorization": `Bearer ${auth}`
+    },
+    mode: "cors",
+  }
+
+
+  while (subloc.options.length > 1) {
+    subloc.remove(subloc.options.length - 1);
+  }
+
+  fetch(url, fetchOption)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Erro ao fazer a requisição: ' + response.status);
+      }
+      return response.json();
+    })
+    .then(data => {
+
+      data.forEach(element => {
+        // console.log(element, id)
+        if (element.id == id) {
+
+          if (element.sublocations.length >= 1) {
+
+            element.sublocations.forEach(sl => {
+
+              var novaOpcao = document.createElement('option');
+              novaOpcao.value = sl.id;
+              novaOpcao.text = sl.name;
+
+              // Adicionar a nova opção ao <select>
+              subloc.appendChild(novaOpcao);
+
+            })
+            subloc.removeAttribute('disabled', '')
+          }
+          else {
+            subloc.setAttribute('disabled', 'true')
+            subloc.selectedIndex = 0
+          }
+        }
+      });
+
+
+
+    })
+    .catch(error => {
+      console.error('Ocorreu ao buscar a sublocação:', error);
+    });
+
+}
+
+// Função para bloqueio de sublocação sem preencher a locação
+function block_sub() {
+  let loc = document.getElementById("desc_loc")
+  let subloc = document.getElementById("desc_subloc")
+
+  if (loc.value != '') {
+    subloc.removeAttribute('disabled')
+  }
+  else {
+    subloc.setAttribute('disabled', '')
+    subloc.value = ''
+  }
+
+}
+
+function mostrarCampoPersonalizado(selectElement) {
+  var campoPersonalizado = document.getElementById('campoPersonalizado');
+  var inputPersonalizado = document.getElementById('inputPersonalizado');
+  let subloc = document.getElementById("desc_subloc")
+
+  if (selectElement.value === 'new') {
+    campoPersonalizado.style.display = 'block';
+    inputPersonalizado.value = '';
+    subloc.setAttribute('disabled', '')
+    subloc.value = ''
+  }
+  else if (selectElement.value === '') {
+    campoPersonalizado.style.display = 'none';
+    inputPersonalizado.value = '';
+    subloc.setAttribute('disabled', '')
+    subloc.value = ''
+  }
+  else {
+    campoPersonalizado.style.display = 'none';
+    subloc.removeAttribute('disabled')
+
+  }
+
 
 
 }

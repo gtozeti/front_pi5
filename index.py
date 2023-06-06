@@ -38,7 +38,8 @@ def login():
 @app.route('/get_session_data')
 def get_session_data():
     auth = session.get('auth')  # Obter o valor da sessão
-    return {'auth': auth}
+    user = session.get('id')  # Obter o valor da sessão
+    return {'auth': auth, 'user': user}
 
 
 @app.route("/logout")

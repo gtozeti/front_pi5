@@ -122,18 +122,18 @@
                 </div>
                 {% if session.accessType == "ADMIN" or session.accessType == "ANALYST" %}
                 <div class="col-md-auto">
-                    <button type="button" onclick="get_sub_loc()" class="btn btn-sm btn-secondary btn-cadastro"
+                    <button type="button" onclick="get_loc()" class="btn btn-sm btn-secondary btn-cadastro"
                         data-toggle="modal" data-target="#exampleModal"><i class="fa  fa-plus"></i>Cadastrar
                         peça</button>
                 </div>
                 <div class="col-md-auto">
-                    <button type="button" class="btn btn-sm  btn-primary" data-toggle="modal"
+                    <button type="button" onclick="get_loc2()" class="btn btn-sm  btn-primary" data-toggle="modal"
                         data-target="#modal_subloc"><i class="fa  fa-plus"></i>Cadastro de locação/sublocação
                     </button>
                 </div>
                 {% endif %}
                 <div class="col-md-auto">
-                    <button type="button" class="btn btn-sm  btn-success" data-toggle="modal"
+                    <button type="button" onclick="get_loc3()" class="btn btn-sm  btn-success" data-toggle="modal"
                         data-target="#modal_entrada"><i class="fas fa-sign-in-alt"></i>Entrada de peça
                     </button>
                 </div>
@@ -193,8 +193,9 @@
                                         <label for="locacao">Locação</label>
                                         <!-- <input type="text" class="form-control" id="locacao" name="locacao"
                                             placeholder="Digite a locação da peça"> -->
-                                        <select name="locacao" id="locacao" class="form-control">
-                                            <option value="" disabled selected>Selecione uma locação
+                                        <select onchange="get_sub(this.value)" name="locacao" id="locacao"
+                                            class="form-control">
+                                            <option value="" disabled selected>Selecione uma locação</option>
                                         </select>
                                         <!-- <input class="form-control" list="listaLoc" id="DataListLoc"
                                             placeholder="Digite uma locação ou adicione uma nova...">
@@ -209,10 +210,9 @@
 
                                     <div class="form-group col-md-6">
                                         <label for="sublocacao">Sublocação</label>
-                                        <!-- <input type="text" class="form-control" id="sublocacao" name="sublocacao"
-                                            placeholder="Digite a sublocação"> -->
-                                        <select name="sublocacao" id="sublocacao" class="form-control">
-                                            <option value="" disabled selected>Selecione uma sublocação
+                                        <!-- <input disabled type="text" class="form-control" id="sublocacao" name="sublocacao"> -->
+                                        <select disabled name="sublocacao" id="sublocacao" class="form-control">
+                                            <option value="" disabled selected>Selecione uma sublocação</option>
                                         </select>
                                         <!-- <input class="form-control" list="listaSubLoc" id="DataListSubLoc"
                                             placeholder="Digite uma sublocação ou adicione uma nova...">
@@ -232,33 +232,33 @@
                                             <option value="Inactive">Inactive</option>
                                         </select>
                                     </div> -->
-                                    <div class="form-group col-md-3">
+                                    <div class="form-group col-md-4">
                                         <label for="peso">Peso</label>
                                         <input type="number" min="1" step="0.01" class="form-control" name="peso"
                                             id="peso" placeholder="Digite o peso">
                                     </div>
-                                    <div class="form-group col-md-3">
+                                    <!-- <div class="form-group col-md-3">
                                         <label for="ncm">NCM</label>
                                         <input type="text" name="ncm" class="form-control" id="ncm"
                                             placeholder="Digite o NCM">
-                                    </div>
-                                    <div class="form-group col-md-6">
+                                    </div> -->
+                                    <div class="form-group col-md-4">
                                         <label for="subsistema">Subsistema</label>
                                         <input type="text" class="form-control" id="subsistema" name="subsistema"
                                             placeholder="Digite o subsistema">
                                     </div>
 
-                                    <div class="form-group col-md-3">
+                                    <div class="form-group col-md-4">
                                         <label for="fabricante">Fabricante</label>
                                         <input type="text" class="form-control" id="fabricante" name="fabricante"
                                             placeholder="Digite o fabricante">
                                     </div>
-                                    <div class="form-group col-md-3">
+                                    <div class="form-group col-md-4">
                                         <label for="quantidade">Quantidade</label>
                                         <input type="number" min="1" class="form-control" id="quantidade"
                                             name="quantidade" placeholder="Digite a quantidade">
                                     </div>
-                                    <div class="form-group col-md-3">
+                                    <div class="form-group col-md-4">
                                         <label for="eixo">Eixo</label>
                                         <select name="eixo" id="eixo" class="form-control">
                                             <option value="" disabled selected>Selecione o eixo</option>
@@ -266,7 +266,7 @@
                                             <option value="Rear">Rear</option>
                                         </select>
                                     </div>
-                                    <div class="form-group col-md-3">
+                                    <div class="form-group col-md-4">
                                         <label for="lado">Lado</label>
                                         <select name="lado" id="lado" class="form-control">
                                             <option value="" disabled selected>Selecione o lado</option>
@@ -324,15 +324,108 @@
                                 <div class="form-row justify-content-center">
                                     <div class="form-group col-md-12">
                                         <label for="desc_loc">Locação</label>
-                                        <input type="text" class="form-control" id="desc_loc" name="desc_loc"
-                                            placeholder="Digite o nome da locação"></input>
+
+                                        <!-- <input type="text" class="form-control" id="desc_loc" name="desc_loc"
+                                            placeholder="Digite o nome da locação" onfocusout="block_sub()"
+                                            onkeydown="block_sub()"></input> -->
+                                        <!-- <input type="text" id="inputPersonalizado"
+                                            placeholder="Digite o valor personalizado">
+
+                                        <select id="desc_loc" class="form-control" name="desc_loc"
+                                            onchange="mostrarCampoPersonalizado(this)">
+                                            <option disabled value="">Selecione uma locação</option>
+                                            <option value="opcao1">Opção 1</option>
+                                            <option value="opcao2">Opção 2</option>
+                                            <option value="outro">Criar</option>
+                                        </select> -->
+
+                                        <select id="meuSelect" class="form-control"  onchange="mostrarCampoPersonalizado(this)">
+                                            <option disabled value="" selected>Selecione uma opção</option>
+                                            <option value="new">Nova</option>
+                                        </select>
+
+                                        <div id="campoPersonalizado"  style="display: none;">
+                                            <input type="text" class="form-control" id="inputPersonalizado"
+                                                placeholder="Digite o valor personalizado">
+                                        </div>
+
                                     </div>
                                     <div class="form-group col-md-12">
                                         <label for="desc_subloc">Sublocação</label>
                                         <input id="desc_subloc" name="desc_subloc" type="text" class="form-control"
-                                            placeholder="Digite o nome da sublocação">
+                                            disabled placeholder="Digite o nome da sublocação">
                                     </div>
 
+
+                                    <div class="col-md-6 my-1">
+
+                                        <button type="submit"
+                                            class="btn btn-primary btn-block btn-cadastrar shadow-none">Cadastrar</button>
+                                    </div>
+                                    <div class="col-md-6 my-1">
+
+                                        <button type="reset"
+                                            class="btn btn-secondary btn-block btn-cadastrar shadow-none">Limpar</button>
+                                    </div>
+
+
+
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal entrada de peça -->
+            <div class="modal fade" id="modal_entrada" tabindex="-1" role="dialog" aria-labelledby="modal_entradaLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-md" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modal_entradaLabel">Entrada de peça</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form enctype="multipart/form-data" id="dadosFormPartEntry">
+                                <div class="form-row justify-content-center">
+                                    <div class="form-group col-md-12">
+                                        <label for="desc_part_entry">Descrição da peça</label>
+                                        <select id="desc_part_entry" class="form-control" name="desc_part_entry">
+                                            <option value="" disabled selected>Selecione uma peça</option>
+                                        </select> 
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="loc_part_entry">Locação</label>
+                                            <select id="loc_part_entry" class="form-control" name="loc_part_entry">
+                                                <option value="" disabled selected>Selecione uma locação</option>
+                                            </select> 
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="tipo_part_entry">Tipo</label>
+                                            <select id="tipo_part_entry" class="form-control" name="tipo_part_entry">
+                                                <option value="" disabled selected>Selecione um tipo</option>
+                                                <option value="Compra">Compra</option>
+                                                <option value="Reparo">Reparo</option>
+                                            </select> 
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="estado_part_entry">Estado</label>
+                                        <select id="estado_part_entry" class="form-control" name="estado_part_entry">
+                                            <option value="" disabled selected>Selecione o estado da peça</option>
+                                            <option value="Nova">Nova</option>
+                                            <option value="Usada">Usada</option>
+                                        </select> 
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="motivo_part_entry">Motivo</label>
+                                        <input id="motivo_part_entry" name="motivo_part_entry" type="text" class="form-control"
+                                        placeholder="Digite um motivo">
+                                    </div>
+                                    
 
                                     <div class="col-md-6 my-1">
 
@@ -401,10 +494,10 @@
                                     <label for="peso">Peso</label>
                                     <input type="text" class="form-control" name="peso" id="info_peso" disabled>
                                 </div>
-                                <div class="form-group col-md-3">
+                                <!-- <div class="form-group col-md-3">
                                     <label for="ncm">NCM</label>
                                     <input type="text" name="ncm" class="form-control" id="info_ncm" disabled>
-                                </div>
+                                </div> -->
                                 <div class="form-group col-md-6">
                                     <label for="subsistema">Subsistema</label>
                                     <input type="text" class="form-control" id="info_subsistema" name="subsistema"
@@ -563,15 +656,20 @@
                         <div class="modal-body">
                             <form enctype="multipart/form-data" id="dadosFormEdit">
                                 <div class="form-row justify-content-center">
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-4">
                                         <label for="att_info_desc_peca">Descrição da peça</label>
                                         <input type="text" class="form-control" id="att_info_desc_peca"
                                             name="att_info_desc_peca"></input>
                                     </div>
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-4">
                                         <label for="att_info_part_number">Part Number</label>
                                         <input id="att_info_part_number" name="att_info_part_number" type="text"
                                             class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="att_info_modelo_carro">Modelo do carro</label>
+                                        <input type="text" class="form-control" id="att_info_modelo_carro"
+                                            name="att_info_modelo_carro">
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="att_info_locacao">Locação</label>
@@ -579,16 +677,24 @@
                                             name="att_info_locacao">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="att_info_modelo_carro">Modelo do carro</label>
-                                        <input type="text" class="form-control" id="att_info_modelo_carro"
-                                            name="att_info_modelo_carro">
-                                    </div>
-                                    <div class="form-group col-md-6">
                                         <label for="att_info_sublocacao">Sublocação</label>
-                                        <input type="text" class="form-control" id="att_info_sublocacao"
+                                        <input disabled type="text" class="form-control" id="att_info_sublocacao"
                                             name="att_info_sublocacao">
                                     </div>
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-3">
+                                        <label for="att_info_peso">Peso</label>
+                                        <input type="text" class="form-control" name="att_info_peso" id="att_info_peso">
+                                    </div>
+                                    <!-- <div class="form-group col-md-3">
+                                        <label for="att_info_ncm">NCM</label>
+                                        <input type="text" name="att_info_ncm" class="form-control" id="att_info_ncm">
+                                    </div> -->
+                                    <div class="form-group col-md-3">
+                                        <label for="att_info_subsistema">Subsistema</label>
+                                        <input type="text" class="form-control" id="att_info_subsistema"
+                                            name="att_info_subsistema">
+                                    </div>
+                                    <div class="form-group col-md-3">
                                         <label for="att_info_estado">Estado</label>
                                         <select name="att_info_estado" id="att_info_estado" name="att_info_estado"
                                             class="form-control">
@@ -596,19 +702,6 @@
                                             <option value="Active">Active</option>
                                             <option value="Inactive">Inactive</option>
                                         </select>
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="att_info_peso">Peso</label>
-                                        <input type="text" class="form-control" name="att_info_peso" id="att_info_peso">
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="att_info_ncm">NCM</label>
-                                        <input type="text" name="att_info_ncm" class="form-control" id="att_info_ncm">
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="att_info_subsistema">Subsistema</label>
-                                        <input type="text" class="form-control" id="att_info_subsistema"
-                                            name="att_info_subsistema">
                                     </div>
 
                                     <div class="form-group col-md-3">
@@ -743,6 +836,7 @@
                     .then(response => response.json())
                     .then(data => {
                         localStorage.setItem('auth', data.auth);  // Armazenar o valor da sessão no Local Storage
+                        localStorage.setItem('user', data.user);  // Armazenar o valor da sessão no Local Storage
                         let url = 'http://179.209.195.115:157/api/v1/part/all'
 
                         let auth = localStorage.getItem('auth')
