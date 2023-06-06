@@ -339,12 +339,13 @@
                                             <option value="outro">Criar</option>
                                         </select> -->
 
-                                        <select id="meuSelect" class="form-control"  onchange="mostrarCampoPersonalizado(this)">
+                                        <select id="meuSelect" class="form-control"
+                                            onchange="mostrarCampoPersonalizado(this)">
                                             <option disabled value="" selected>Selecione uma opção</option>
                                             <option value="new">Nova</option>
                                         </select>
 
-                                        <div id="campoPersonalizado"  style="display: none;">
+                                        <div id="campoPersonalizado" style="display: none;">
                                             <input type="text" class="form-control" id="inputPersonalizado"
                                                 placeholder="Digite o valor personalizado">
                                         </div>
@@ -396,21 +397,21 @@
                                         <label for="desc_part_entry">Descrição da peça</label>
                                         <select id="desc_part_entry" class="form-control" name="desc_part_entry">
                                             <option value="" disabled selected>Selecione uma peça</option>
-                                        </select> 
+                                        </select>
                                     </div>
                                     <div class="form-group col-md-12">
                                         <label for="loc_part_entry">Locação</label>
-                                            <select id="loc_part_entry" class="form-control" name="loc_part_entry">
-                                                <option value="" disabled selected>Selecione uma locação</option>
-                                            </select> 
+                                        <select id="loc_part_entry" class="form-control" name="loc_part_entry">
+                                            <option value="" disabled selected>Selecione uma locação</option>
+                                        </select>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="tipo_part_entry">Tipo</label>
-                                            <select id="tipo_part_entry" class="form-control" name="tipo_part_entry">
-                                                <option value="" disabled selected>Selecione um tipo</option>
-                                                <option value="Compra">Compra</option>
-                                                <option value="Reparo">Reparo</option>
-                                            </select> 
+                                        <select id="tipo_part_entry" class="form-control" name="tipo_part_entry">
+                                            <option value="" disabled selected>Selecione um tipo</option>
+                                            <option value="Compra">Compra</option>
+                                            <option value="Reparo">Reparo</option>
+                                        </select>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="estado_part_entry">Estado</label>
@@ -418,14 +419,14 @@
                                             <option value="" disabled selected>Selecione o estado da peça</option>
                                             <option value="Nova">Nova</option>
                                             <option value="Usada">Usada</option>
-                                        </select> 
+                                        </select>
                                     </div>
                                     <div class="form-group col-md-12">
                                         <label for="motivo_part_entry">Motivo</label>
-                                        <input id="motivo_part_entry" name="motivo_part_entry" type="text" class="form-control"
-                                        placeholder="Digite um motivo">
+                                        <input id="motivo_part_entry" name="motivo_part_entry" type="text"
+                                            class="form-control" placeholder="Digite um motivo">
                                     </div>
-                                    
+
 
                                     <div class="col-md-6 my-1">
 
@@ -498,21 +499,10 @@
                                     <label for="ncm">NCM</label>
                                     <input type="text" name="ncm" class="form-control" id="info_ncm" disabled>
                                 </div> -->
-                                <div class="form-group col-md-6">
-                                    <label for="subsistema">Subsistema</label>
-                                    <input type="text" class="form-control" id="info_subsistema" name="subsistema"
-                                        disabled>
-                                </div>
-
-                                <div class="form-group col-md-3">
-                                    <label for="fabricante">Fabricante</label>
-                                    <input type="text" class="form-control" id="info_fabricante" name="fabricante"
-                                        disabled>
-                                </div>
                                 <div class="form-group col-md-3">
                                     <label for="quantidade">Quantidade</label>
                                     <input type="text" class="form-control" id="info_quantidade" name="quantidade"
-                                        disabled>
+                                    disabled>
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="eixo">Eixo</label>
@@ -522,14 +512,25 @@
                                     <label for="lado">Lado</label>
                                     <input type="text" class="form-control" id="info_lado" name="lado" disabled>
                                 </div>
+                                <div class="form-group col-md-6">
+                                    <label for="subsistema">Subsistema</label>
+                                    <input type="text" class="form-control" id="info_subsistema" name="subsistema"
+                                        disabled>
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label for="fabricante">Fabricante</label>
+                                    <input type="text" class="form-control" id="info_fabricante" name="fabricante"
+                                        disabled>
+                                </div>
 
 
-
+<!-- 
                                 <div class="col-md-6">
 
                                     <button onclick="att(this)"
                                         class="btn btn-success btn-block btn-entrada shadow-none">Entrada</button>
-                                </div>
+                                </div> -->
                                 <div class="col-md-6">
 
                                     <button onclick="att(this)"
@@ -822,7 +823,19 @@
                     { data: 'id', visible: false, searchable: false },
                     { data: 'part_number' },
                     { data: 'desc_peca' },
-                    { data: 'fabricante' }
+                    { data: 'fabricante' },
+                    { data: 'desc_peca2', visible: false, searchable: false },
+                    { data: 'loc', visible: false, searchable: false },
+                    { data: 'modelo', visible: false, searchable: false },
+                    { data: 'subloc', visible: false, searchable: false },
+                    { data: 'estado', visible: false, searchable: false },
+                    { data: 'peso', visible: false, searchable: false },
+                    { data: 'preco', visible: false, searchable: false },
+                    { data: 'subsistema', visible: false, searchable: false },
+                    { data: 'fabricante', visible: false, searchable: false },
+                    { data: 'qtd', visible: false, searchable: false },
+                    { data: 'eixo', visible: false, searchable: false },
+                    { data: 'lado', visible: false, searchable: false },
                 ],
                 "columnDefs": [
                     { "targets": 1, "width": "20%" },
@@ -837,7 +850,7 @@
                     .then(data => {
                         localStorage.setItem('auth', data.auth);  // Armazenar o valor da sessão no Local Storage
                         localStorage.setItem('user', data.user);  // Armazenar o valor da sessão no Local Storage
-                        let url = 'http://179.209.195.115:157/api/v1/part/all'
+                        let url = 'http://179.209.195.115:157/api/v1/location/all'
 
                         let auth = localStorage.getItem('auth')
 
@@ -857,12 +870,52 @@
                             .then(data => {
                                 let info = []
                                 var tabela = $('#myTable').DataTable();
-                                data.content.forEach(element => {
-                                    info.push({
-                                        'id': element.id, 'part_number': element.partnumber, 'desc_peca': element.name, 'fabricante': '<div class= "d-flex"><div class="mr-auto p-2">' + element.manufacturer + '{% if session.accessType == "ADMIN" or session.accessType == "ANALYST" %}</div><div class="p-2"><button type="button" id="' + element.id + '" class="btn  btn-sm btn-info btn-edit" onclick="get_att(this.id)"data-toggle="modal"data-target="#exampleModalEdit"><i class="fas fa-edit"></i></div><div class="p-2"></button><button id="' + element.id + '" onclick="get_att(this.id)"  type="button" class="btn  btn-sm btn-danger btn-delete" data-toggle="modal" data-target="#exampleModalDelete"><i class="fas fa-trash"></i></button></div></div>{% endif %}'
+                                data.forEach(loc => {
+                                    loc.parts.forEach(locloc => {
+                                        info.push({
+                                            'id': locloc.id,
+                                            'part_number': locloc.partnumber,
+                                            'desc_peca2': locloc.name,
+                                            'loc': loc.name,
+                                            'modelo': locloc.carModel,
+                                            'subloc': '',
+                                            'estado': locloc.state,
+                                            'preco': locloc.price,
+                                            'peso': locloc.weight,
+                                            'subsistema': locloc.carModel,
+                                            'fabricante2': locloc.manufacturer,
+                                            'qtd': 2,
+                                            'eixo': locloc.axleSide,
+                                            'lado': 'Left',
+                                            'desc_peca': locloc.name,
+                                            'fabricante': '<div class= "d-flex"><div class="mr-auto p-2">' + locloc.manufacturer + '{% if session.accessType == "ADMIN" or session.accessType == "ANALYST" %}</div><div class="p-2"><button type="button" id="' + locloc.id + '" class="btn  btn-sm btn-info btn-edit" onclick="get_att(this.id)"data-toggle="modal"data-target="#exampleModalEdit"><i class="fas fa-edit"></i></div><div class="p-2"></button><button id="' + locloc.id + '" onclick="get_att(this.id)"  type="button" class="btn  btn-sm btn-danger btn-delete" data-toggle="modal" data-target="#exampleModalDelete"><i class="fas fa-trash"></i></button></div></div>{% endif %}'
+                                        })
                                     })
+                                    loc.sublocations.forEach(subloc => {
+                                        subloc.pieces.forEach(pecas => {
+                                            info.push({
+                                                'id': pecas.id,
+                                                'part_number': pecas.partnumber,
+                                                'desc_peca2': pecas.name,
+                                                'loc': loc.name,
+                                                'modelo': pecas.carModel,
+                                                'subloc': subloc.name,
+                                                'estado': pecas.state,
+                                                'preco': pecas.price,
+                                                'peso': pecas.weight,
+                                                'subsistema': pecas.carModel,
+                                                'fabricante2': pecas.manufacturer,
+                                                'qtd': 2,
+                                                'eixo': pecas.axleSide,
+                                                'lado': 'Left',
+                                                'desc_peca': pecas.name,
+                                                'fabricante': '<div class= "d-flex"><div class="mr-auto p-2">' + pecas.manufacturer + '{% if session.accessType == "ADMIN" or session.accessType == "ANALYST" %}</div><div class="p-2"><button type="button" id="' + pecas.id + '" class="btn  btn-sm btn-info btn-edit" onclick="get_att(this.id)"data-toggle="modal"data-target="#exampleModalEdit"><i class="fas fa-edit"></i></div><div class="p-2"></button><button id="' + pecas.id + '" onclick="get_att(this.id)"  type="button" class="btn  btn-sm btn-danger btn-delete" data-toggle="modal" data-target="#exampleModalDelete"><i class="fas fa-trash"></i></button></div></div>{% endif %}'
+                                            })
+                                        })
+
+                                    })
+
                                 });
-                                // Inserir os dados na tabela
                                 tabela.rows.add(info).draw();
                             })
                             .catch(error => {
@@ -876,7 +929,7 @@
 
 
             } else {
-                let url = 'http://179.209.195.115:157/api/v1/part/all'
+                let url = 'http://179.209.195.115:157/api/v1/location/all'
 
                 let auth = localStorage.getItem('auth')
 
@@ -896,12 +949,52 @@
                     .then(data => {
                         let info = []
                         var tabela = $('#myTable').DataTable();
-                        data.content.forEach(element => {
-                            info.push({
-                                'id': element.id, 'part_number': element.partnumber, 'desc_peca': element.name, 'fabricante': '<div class= "d-flex"><div class="mr-auto p-2">' + element.manufacturer + '{% if session.accessType == "ADMIN" or session.accessType == "ANALYST" %}</div><div class="p-2"><button type="button" id="' + element.id + '" class="btn  btn-sm btn-info btn-edit" onclick="get_att(this.id)"data-toggle="modal"data-target="#exampleModalEdit"><i class="fas fa-edit"></i></div><div class="p-2"></button><button id="' + element.id + '" onclick="get_att(this.id)"  type="button" class="btn  btn-sm btn-danger btn-delete" data-toggle="modal" data-target="#exampleModalDelete"><i class="fas fa-trash"></i></button></div></div>{% endif %}'
+                        data.forEach(loc => {
+                            loc.parts.forEach(locloc => {
+                                info.push({
+                                    'id': locloc.id,
+                                    'part_number': locloc.partnumber,
+                                    'desc_peca2': locloc.name,
+                                    'loc': loc.name,
+                                    'modelo': locloc.carModel,
+                                    'subloc': '',
+                                    'estado': locloc.state,
+                                    'preco': locloc.price,
+                                    'peso': locloc.weight,
+                                    'subsistema': locloc.carModel,
+                                    'fabricante2': locloc.manufacturer,
+                                    'qtd': 2,
+                                    'eixo': locloc.axleSide,
+                                    'lado': 'Left',
+                                    'desc_peca': locloc.name,
+                                    'fabricante': '<div class= "d-flex"><div class="mr-auto p-2">' + locloc.manufacturer + '{% if session.accessType == "ADMIN" or session.accessType == "ANALYST" %}</div><div class="p-2"><button type="button" id="' + locloc.id + '" class="btn  btn-sm btn-info btn-edit" onclick="get_att(this.id)"data-toggle="modal"data-target="#exampleModalEdit"><i class="fas fa-edit"></i></div><div class="p-2"></button><button id="' + locloc.id + '" onclick="get_att(this.id)"  type="button" class="btn  btn-sm btn-danger btn-delete" data-toggle="modal" data-target="#exampleModalDelete"><i class="fas fa-trash"></i></button></div></div>{% endif %}'
+                                })
                             })
+                            loc.sublocations.forEach(subloc => {
+                                subloc.pieces.forEach(pecas => {
+                                    info.push({
+                                        'id': pecas.id,
+                                        'part_number': pecas.partnumber,
+                                        'desc_peca2': pecas.name,
+                                        'loc': loc.name,
+                                        'modelo': pecas.carModel,
+                                        'subloc': subloc.name,
+                                        'estado': pecas.state,
+                                        'preco': pecas.price,
+                                        'peso': pecas.weight,
+                                        'subsistema': pecas.carModel,
+                                        'fabricante2': pecas.manufacturer,
+                                        'qtd': 2,
+                                        'eixo': pecas.axleSide,
+                                        'lado': 'Left',
+                                        'desc_peca': pecas.name,
+                                        'fabricante': '<div class= "d-flex"><div class="mr-auto p-2">' + pecas.manufacturer + '{% if session.accessType == "ADMIN" or session.accessType == "ANALYST" %}</div><div class="p-2"><button type="button" id="' + pecas.id + '" class="btn  btn-sm btn-info btn-edit" onclick="get_att(this.id)"data-toggle="modal"data-target="#exampleModalEdit"><i class="fas fa-edit"></i></div><div class="p-2"></button><button id="' + pecas.id + '" onclick="get_att(this.id)"  type="button" class="btn  btn-sm btn-danger btn-delete" data-toggle="modal" data-target="#exampleModalDelete"><i class="fas fa-trash"></i></button></div></div>{% endif %}'
+                                    })
+                                })
+
+                            })
+
                         });
-                        // Inserir os dados na tabela
                         tabela.rows.add(info).draw();
                     })
                     .catch(error => {
@@ -931,7 +1024,21 @@
             $('#myTable').on('click', 'tbody td:nth-child(1)', function () {
                 var row = table.row($(this)).data();
                 $('#modal-info').modal('show')
-                get_info(row.id, localStorage.getItem('auth'))
+                // get_info(row.id, localStorage.getItem('auth'))
+
+                document.getElementById("info_desc_peca").value = row.desc_peca2
+                document.getElementById("info_part_number").value = row.part_number
+                document.getElementById("info_locacao").value = row.loc
+                document.getElementById("info_modelo_carro").value = row.modelo
+                document.getElementById("info_sublocacao").value = row.subloc
+                document.getElementById("info_estado").value = row.estado
+                document.getElementById("info_quantidade").value = row.qtd
+                document.getElementById("info_peso").value = row.peso
+                document.getElementById("info_subsistema").value = row.subsistema
+                document.getElementById("info_fabricante").value = row.fabricante2
+                document.getElementById("info_eixo").value = row.eixo
+                document.getElementById("info_lado").value = row.lado
+
                 localStorage.setItem('id', row.id);
             });
 
