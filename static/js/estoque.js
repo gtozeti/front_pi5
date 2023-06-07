@@ -749,7 +749,7 @@ function get_loc3() {
 
 
       while (loc_part_entry.options.length > 1) {
-        loc_part_entry.remove(loc.options.length - 1);
+        loc_part_entry.remove(loc_part_entry.options.length - 1);
       }
 
       data.forEach(element => {
@@ -778,7 +778,7 @@ function get_loc3() {
 
 
       while (desc_part_entry.options.length > 1) {
-        desc_part_entry.remove(loc.options.length - 1);
+        desc_part_entry.remove(desc_part_entry.options.length - 1);
       }
 
       data.content.forEach(element => {
@@ -883,7 +883,7 @@ function get_users() {
 function get_sub(info) {
 
 
-  let subloc = document.getElementById('sublocacao')
+  // let subloc = document.getElementById('sublocacao')
   let subloc2 = document.getElementById('subloc_part_entry')
   
   let id = info
@@ -899,9 +899,9 @@ function get_sub(info) {
   }
 
 
-  while (subloc.options.length > 1) {
-    subloc.remove(subloc.options.length - 1);
-  }
+  // while (subloc.options.length > 1) {
+  //   subloc.remove(subloc.options.length - 1);
+  // }
   while (subloc2.options.length > 1) {
     subloc2.remove(subloc2.options.length - 1);
   }
@@ -928,16 +928,16 @@ function get_sub(info) {
               novaOpcao.text = sl.name;
 
               // Adicionar a nova opção ao <select>
-              subloc.appendChild(novaOpcao);
+              // subloc.appendChild(novaOpcao);
               subloc2.appendChild(novaOpcao);
 
             })
-            subloc.removeAttribute('disabled', '')
+            // subloc.removeAttribute('disabled', '')
             subloc2.removeAttribute('disabled', '')
           }
           else {
-            subloc.setAttribute('disabled', 'true')
-            subloc.selectedIndex = 0
+            // subloc.setAttribute('disabled', 'true')
+            // subloc.selectedIndex = 0
             subloc2.setAttribute('disabled', 'true')
             subloc2.selectedIndex = 0
           }
