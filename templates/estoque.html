@@ -869,7 +869,6 @@
                                             'peso': locloc.weight,
                                             'subsistema': locloc.subsystem,
                                             'fabricante2': locloc.manufacturer,
-                                          
                                             'eixo': locloc.axleSide,
                                             'lado': 'Left',
                                             'desc_peca': locloc.name,
@@ -891,7 +890,6 @@
                                                 'peso': pecas.weight,
                                                 'subsistema': pecas.subsystem,
                                                 'fabricante2': pecas.manufacturer,
-                                                
                                                 'eixo': pecas.axleSide,
                                                 'lado': 'Left',
                                                 'desc_peca': pecas.name,
@@ -950,7 +948,6 @@
                                     'peso': locloc.weight,
                                     'subsistema': locloc.subsystem,
                                     'fabricante2': locloc.manufacturer,
-                                   
                                     'eixo': locloc.axleSide,
                                     'lado': 'Left',
                                     'desc_peca': locloc.name,
@@ -973,7 +970,6 @@
                                         'peso': pecas.weight,
                                         'subsistema': pecas.subsystem,
                                         'fabricante2': pecas.manufacturer,
-                                        
                                         'eixo': pecas.axleSide,
                                         'lado': 'Left',
                                         'desc_peca': pecas.name,
@@ -1017,13 +1013,13 @@
                 $('#modal-info').modal('show')
                 // get_info(row.id, localStorage.getItem('auth'))
 
+                console.log(row)
                 document.getElementById("info_desc_peca").value = row.desc_peca2
                 document.getElementById("info_part_number").value = row.part_number
                 document.getElementById("info_locacao").value = row.loc
                 document.getElementById("info_modelo_carro").value = row.modelo
                 document.getElementById("info_sublocacao").value = row.subloc
                 document.getElementById("info_estado").value = row.estado
-                document.getElementById("info_quantidade").value = row.qtd
                 document.getElementById("info_peso").value = row.peso
                 document.getElementById("info_subsistema").value = row.subsistema
                 document.getElementById("info_fabricante").value = row.fabricante2
