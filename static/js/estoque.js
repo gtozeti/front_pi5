@@ -863,7 +863,7 @@ function get_users() {
       data.forEach(element => {
         var novaOpcao = document.createElement('option');
         novaOpcao.value = element.id;
-        novaOpcao.text = element.model;
+        novaOpcao.text = element.model +' - '+element.chassi;
 
         // Adicionar a nova opção ao <select>
         moviment_qtd_out.appendChild(novaOpcao);
