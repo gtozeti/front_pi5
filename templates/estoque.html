@@ -401,8 +401,14 @@
                                     </div>
                                     <div class="form-group col-md-12">
                                         <label for="loc_part_entry">Locação</label>
-                                        <select id="loc_part_entry" class="form-control" name="loc_part_entry">
+                                        <select onchange="get_sub(this.value)"  id="loc_part_entry" class="form-control" name="loc_part_entry">
                                             <option value="" disabled selected>Selecione uma locação</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="subloc_part_entry">Sub Locação</label>
+                                        <select id="subloc_part_entry" class="form-control" name="subloc_part_entry">
+                                            <option value="" disabled selected>Selecione uma sublocação</option>
                                         </select>
                                     </div>
                                     <div class="form-group col-md-6">
@@ -502,7 +508,7 @@
                                 <div class="form-group col-md-3">
                                     <label for="quantidade">Quantidade</label>
                                     <input type="text" class="form-control" id="info_quantidade" name="quantidade"
-                                    disabled>
+                                        disabled>
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="eixo">Eixo</label>
@@ -525,7 +531,7 @@
                                 </div>
 
 
-<!-- 
+                                <!-- 
                                 <div class="col-md-6">
 
                                     <button onclick="att(this)"
@@ -573,51 +579,43 @@
                                         <h5 class="modal-title">Saída</h5>
                                     </div>
                                     <div class="form-row justify-content-center my-3">
-                                        <div class="form-group col-md-4">
-                                            <label for="moviment_action_out">Ação</label>
-                                            <input id="moviment_action_out" name="moviment_action_out" type="text"
-                                                class="form-control" placeholder="Digite a ação">
+                                        <div class="form-group col-md-6">
+                                            <label for="moviment_action_out">Retirado por</label>
+                                            <!-- <input id="moviment_action_out" name="moviment_action_out" type="text"
+                                                class="form-control" placeholder="Digite a ação"> -->
+                                            <select id="moviment_action_out" class="form-control"
+                                                name="moviment_action_out">
+                                                <option value="" disabled selected>Selecione quem retirou</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="moviment_qtd_out">Carro</label>
+                                            <!-- <input id="moviment_qtd_out" name="moviment_qtd_out" type="text"
+                                                class="form-control" placeholder="Digite a quantidade"> -->
+                                            <select id="moviment_qtd_out" class="form-control"
+                                                name="moviment_qtd_out">
+                                                <option value="" disabled selected>Selecione o carro</option>
+                                            </select>
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <label for="moviment_qtd_out">Quantidade</label>
-                                            <input id="moviment_qtd_out" name="moviment_qtd_out" type="text"
-                                                class="form-control" placeholder="Digite a quantidade">
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="moviment_chassis_out">Chassis</label>
+                                            <label for="moviment_chassis_out">Tipo</label>
                                             <input id="moviment_chassis_out" name="moviment_chassis_out" type="text"
-                                                class="form-control" placeholder="Digite o chassis">
+                                                class="form-control" placeholder="Digite o tipo">
                                         </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="moviment_eixo_out">Eixo</label>
-                                            <input id="moviment_eixo_out" name="moviment_eixo_out" type="text"
-                                                class="form-control" placeholder="Digite o eixo">
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="moviment_lado_out">Lado</label>
-                                            <input id="moviment_lado_out" name="moviment_lado_out" type="text"
-                                                class="form-control" placeholder="Digite o lado">
-                                        </div>
+                                
                                         <div class="form-group col-md-4">
                                             <label for="moviment_etapa_out">Etapa</label>
                                             <input id="moviment_etapa_out" name="moviment_etapa_out" type="text"
                                                 class="form-control" placeholder="Digite a etapa">
                                         </div>
+                                 
                                         <div class="form-group col-md-4">
-                                            <label for="moviment_sessao_out">Sessão</label>
-                                            <input id="moviment_sessao_out" name="moviment_sessao_out" type="text"
+                                            <label for="moviment_session_out">Sessão</label>
+                                            <input id="moviment_session_out" name="moviment_session_out" type="text"
                                                 class="form-control" placeholder="Digite a sessão">
                                         </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="moviment_peca_out">Peça</label>
-                                            <input id="moviment_peca_out" name="moviment_peca_out" type="text"
-                                                class="form-control" placeholder="Digite a peça">
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="moviment_est_peca_out">Estado da peça</label>
-                                            <input id="moviment_est_peca_out" name="moviment_est_peca_out" type="text"
-                                                class="form-control" placeholder="Digite o estado da peça">
-                                        </div>
+                                 
+                                   
                                         <div class="form-group col-md-12">
                                             <label for="moviment_motivo_out">Motivo</label>
                                             <input id="moviment_motivo_out" name="moviment_motivo_out" type="text"
@@ -888,7 +886,8 @@
                                             'eixo': locloc.axleSide,
                                             'lado': 'Left',
                                             'desc_peca': locloc.name,
-                                            'fabricante': '<div class= "d-flex"><div class="mr-auto p-2">' + locloc.manufacturer + '{% if session.accessType == "ADMIN" or session.accessType == "ANALYST" %}</div><div class="p-2"><button type="button" id="' + locloc.id + '" class="btn  btn-sm btn-info btn-edit" onclick="get_att(this.id)"data-toggle="modal"data-target="#exampleModalEdit"><i class="fas fa-edit"></i></div><div class="p-2"></button><button id="' + locloc.id + '" onclick="get_att(this.id)"  type="button" class="btn  btn-sm btn-danger btn-delete" data-toggle="modal" data-target="#exampleModalDelete"><i class="fas fa-trash"></i></button></div></div>{% endif %}'
+                                            'fabricante': '<div class= "d-flex"><div class="mr-auto p-2">' + locloc.manufacturer + '{% if session.accessType == "ADMIN" or session.accessType == "ANALYST" %}'
+                                            // </div><div class="p-2"><button type="button" id="' + locloc.id + '" class="btn  btn-sm btn-info btn-edit" onclick="get_att(this.id)"data-toggle="modal"data-target="#exampleModalEdit"><i class="fas fa-edit"></i></div><div class="p-2"></button><button id="' + locloc.id + '" onclick="get_att(this.id)"  type="button" class="btn  btn-sm btn-danger btn-delete" data-toggle="modal" data-target="#exampleModalDelete"><i class="fas fa-trash"></i></button></div></div>{% endif %}'
                                         })
                                     })
                                     loc.sublocations.forEach(subloc => {
@@ -909,7 +908,8 @@
                                                 'eixo': pecas.axleSide,
                                                 'lado': 'Left',
                                                 'desc_peca': pecas.name,
-                                                'fabricante': '<div class= "d-flex"><div class="mr-auto p-2">' + pecas.manufacturer + '{% if session.accessType == "ADMIN" or session.accessType == "ANALYST" %}</div><div class="p-2"><button type="button" id="' + pecas.id + '" class="btn  btn-sm btn-info btn-edit" onclick="get_att(this.id)"data-toggle="modal"data-target="#exampleModalEdit"><i class="fas fa-edit"></i></div><div class="p-2"></button><button id="' + pecas.id + '" onclick="get_att(this.id)"  type="button" class="btn  btn-sm btn-danger btn-delete" data-toggle="modal" data-target="#exampleModalDelete"><i class="fas fa-trash"></i></button></div></div>{% endif %}'
+                                                'fabricante': '<div class= "d-flex"><div class="mr-auto p-2">' + pecas.manufacturer + '{% if session.accessType == "ADMIN" or session.accessType == "ANALYST" %}'
+                                                // </div><div class="p-2"><button type="button" id="' + pecas.id + '" class="btn  btn-sm btn-info btn-edit" onclick="get_att(this.id)"data-toggle="modal"data-target="#exampleModalEdit"><i class="fas fa-edit"></i></div><div class="p-2"></button><button id="' + pecas.id + '" onclick="get_att(this.id)"  type="button" class="btn  btn-sm btn-danger btn-delete" data-toggle="modal" data-target="#exampleModalDelete"><i class="fas fa-trash"></i></button></div></div>{% endif %}'
                                             })
                                         })
 
@@ -967,7 +967,9 @@
                                     'eixo': locloc.axleSide,
                                     'lado': 'Left',
                                     'desc_peca': locloc.name,
-                                    'fabricante': '<div class= "d-flex"><div class="mr-auto p-2">' + locloc.manufacturer + '{% if session.accessType == "ADMIN" or session.accessType == "ANALYST" %}</div><div class="p-2"><button type="button" id="' + locloc.id + '" class="btn  btn-sm btn-info btn-edit" onclick="get_att(this.id)"data-toggle="modal"data-target="#exampleModalEdit"><i class="fas fa-edit"></i></div><div class="p-2"></button><button id="' + locloc.id + '" onclick="get_att(this.id)"  type="button" class="btn  btn-sm btn-danger btn-delete" data-toggle="modal" data-target="#exampleModalDelete"><i class="fas fa-trash"></i></button></div></div>{% endif %}'
+                                    'fabricante': '<div class= "d-flex"><div class="mr-auto p-2">' + locloc.manufacturer + '{% if session.accessType == "ADMIN" or session.accessType == "ANALYST" %}'
+                                    //         </div><div class="p-2"><button type="button" id="' + locloc.id + '" class="btn  btn-sm btn-info btn-edit" onclick="get_att(this.id)"data-toggle="modal"data-target="#exampleModalEdit"><i class="fas fa-edit"></i></div><div class="p-2"></button><button id="' + locloc.id + '" onclick="get_att(this.id)"  type="button" class="btn  btn-sm btn-danger btn-delete" data-toggle="modal" data-target="#exampleModalDelete"><i class="fas fa-trash"></i></button></div></div>{% endif %}'
+                                    // 
                                 })
                             })
                             loc.sublocations.forEach(subloc => {
@@ -988,7 +990,9 @@
                                         'eixo': pecas.axleSide,
                                         'lado': 'Left',
                                         'desc_peca': pecas.name,
-                                        'fabricante': '<div class= "d-flex"><div class="mr-auto p-2">' + pecas.manufacturer + '{% if session.accessType == "ADMIN" or session.accessType == "ANALYST" %}</div><div class="p-2"><button type="button" id="' + pecas.id + '" class="btn  btn-sm btn-info btn-edit" onclick="get_att(this.id)"data-toggle="modal"data-target="#exampleModalEdit"><i class="fas fa-edit"></i></div><div class="p-2"></button><button id="' + pecas.id + '" onclick="get_att(this.id)"  type="button" class="btn  btn-sm btn-danger btn-delete" data-toggle="modal" data-target="#exampleModalDelete"><i class="fas fa-trash"></i></button></div></div>{% endif %}'
+                                        'fabricante': '<div class= "d-flex"><div class="mr-auto p-2">' + pecas.manufacturer + '{% if session.accessType == "ADMIN" or session.accessType == "ANALYST" %}'
+                                        //         </div><div class="p-2"><button type="button" id="' + pecas.id + '" class="btn  btn-sm btn-info btn-edit" onclick="get_att(this.id)"data-toggle="modal"data-target="#exampleModalEdit"><i class="fas fa-edit"></i></div><div class="p-2"></button><button id="' + pecas.id + '" onclick="get_att(this.id)"  type="button" class="btn  btn-sm btn-danger btn-delete" data-toggle="modal" data-target="#exampleModalDelete"><i class="fas fa-trash"></i></button></div></div>{% endif %}'
+                                        // 
                                     })
                                 })
 

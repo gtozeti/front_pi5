@@ -232,7 +232,9 @@ form_info_in.addEventListener("submit", (e) => {
 
   let userId = localStorage.getItem('user')
   let partId = document.getElementById("desc_part_entry").value
-  let locationId = document.getElementById("loc_part_entry").value
+  
+  let locationId = document.getElementById("subloc_part_entry").value == '' ? document.getElementById("loc_part_entry").value :  document.getElementById("subloc_part_entry").value 
+
   let type = document.getElementById("tipo_part_entry").value
   let state = document.getElementById("estado_part_entry").value
   let reason = document.getElementById("motivo_part_entry").value
@@ -291,45 +293,45 @@ let form_info_out = document.getElementById("moviment_dadosForm_out")
 form_info_out.addEventListener("submit", (e) => {
   e.preventDefault()
 
-  const url = 'http://127.0.0.1:8000'
-  const endpoint = '/moviment/out/'
+  let userControl = localStorage.getItem('user')
+  let userWidhdrawal = document.getElementById('moviment_action_out').value
+  let partId = localStorage.getItem('id')
+  let carId = document.getElementById('moviment_qtd_out').value
+  let type = document.getElementById('moviment_chassis_out').value
+  let reason = document.getElementById('moviment_motivo_out').value
+  let stage = document.getElementById('moviment_etapa_out').value
+  let session = document.getElementById('moviment_session_out').value
 
-  // elementos de saída
-  let action_out = document.getElementById("moviment_action_out").value
-  let qtd_out = document.getElementById("moviment_qtd_out").value
-  let chassis_out = document.getElementById("moviment_chassis_out").value
-  let eixo_out = document.getElementById("moviment_eixo_out").value
-  let lado_out = document.getElementById("moviment_lado_out").value
-  let etapa_out = document.getElementById("moviment_etapa_out").value
-  let sessao_out = document.getElementById("moviment_sessao_out").value
-  let peca_out = document.getElementById("moviment_peca_out").value
-  let est_peca_out = document.getElementById("moviment_est_peca_out").value
-  let motivo_out = document.getElementById("moviment_motivo_out").value
 
-  let obj_out = {
-    "action_out": action_out,
-    "qtd_out": qtd_out,
-    "chassis_out": chassis_out,
-    "eixo_out": eixo_out,
-    "lado_out": lado_out,
-    "etapa_out": etapa_out,
-    "sessao_out": sessao_out,
-    "peca_out": peca_out,
-    "est_peca_out": est_peca_out,
-    "motivo_out": motivo_out
+  let obj = {
+    "userControl": userControl,
+    "userWidhdrawal": userWidhdrawal,
+    "partId": partId,
+    "carId": carId,
+    "type": type,
+    "reason": reason,
+    "stage": stage,
+    "session": session
   }
 
+  let auth = localStorage.getItem('auth')
+
   const fetchOption = {
-    method: 'PUT',
-    body: JSON.stringify(obj_out),
+    method: 'POST',
+    body: JSON.stringify(obj),
     headers: {
-      "content-type": "application/json",
+      "Content-Type": "application/json",
+      'Accept': '*/*',
+      "Authorization": `Bearer ${auth}`
     },
     mode: "cors",
   }
 
 
-  fetch(url + endpoint + localStorage.getItem("id"), fetchOption)
+  const url = 'http://179.209.195.115:157/api/v1/partout/create'
+
+
+  fetch(url, fetchOption)
     .then(response => {
       if (!response.ok) {
         throw new Error('Erro ao fazer a requisição: ' + response.status);
@@ -338,7 +340,7 @@ form_info_out.addEventListener("submit", (e) => {
     })
     .then(data => {
 
-      window.alert("Item registrado com sucesso")
+      window.alert("Saída registrada com sucesso")
       $('#modal-info').modal('hide');
       document.getElementById('moviment_dadosForm_out').setAttribute("hidden", true)
       location.reload()
@@ -511,7 +513,7 @@ function get_info(id, auth) {
 
 function get_att(id) {
 
-
+  console.log('iuadgfuklasdf')
   let auth = localStorage.getItem('auth')
 
   const url = `http://179.209.195.115:157/api/v1/part/find?id=${id}`
@@ -596,6 +598,7 @@ function att(e) {
 
   }
 
+  get_users()
 
 }
 
@@ -718,6 +721,7 @@ function get_loc3() {
 
   const url1 = `http://179.209.195.115:157/api/v1/location/all`
   const url2 = `http://179.209.195.115:157/api/v1/part/all`
+  const url3 = `http://179.209.195.115:157/api/v1/part/all`
   let auth = localStorage.getItem('auth')
 
   const fetchOption = {
@@ -791,12 +795,94 @@ function get_loc3() {
 
 }
 
+// Função para trazer as locações
+function get_users() {
+
+  const url1 = `http://179.209.195.115:157/api/v1/user/all`
+  const url2 = `http://179.209.195.115:157/api/v1/car/all`
+
+  let auth = localStorage.getItem('auth')
+
+  const fetchOption = {
+    method: 'GET',
+    headers: {
+      "Authorization": `Bearer ${auth}`
+    },
+    mode: "cors",
+  }
+
+  moviment_action_out = document.getElementById('moviment_action_out')
+  moviment_qtd_out = document.getElementById('moviment_qtd_out')
+
+  fetch(url1, fetchOption)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Erro ao fazer a requisição: ' + response.status);
+      }
+      return response.json();
+    })
+    .then(data => {
+
+
+      while (moviment_action_out.options.length > 1) {
+        moviment_action_out.remove(moviment_action_out.options.length - 1);
+      }
+
+      data.content.forEach(element => {
+        var novaOpcao = document.createElement('option');
+        novaOpcao.value = element.id;
+        novaOpcao.text = element.name;
+
+        // Adicionar a nova opção ao <select>
+        moviment_action_out.appendChild(novaOpcao);
+      })
+
+    })
+    .catch(error => {
+      console.error('Ocorreu ao buscar as funcionários:', error);
+    });
+
+
+  fetch(url2, fetchOption)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Erro ao fazer a requisição: ' + response.status);
+      }
+      return response.json();
+    })
+    .then(data => {
+
+
+      while (moviment_qtd_out.options.length > 1) {
+        moviment_qtd_out.remove(moviment_qtd_out.options.length - 1);
+      }
+
+      data.forEach(element => {
+        var novaOpcao = document.createElement('option');
+        novaOpcao.value = element.id;
+        novaOpcao.text = element.model;
+
+        // Adicionar a nova opção ao <select>
+        moviment_qtd_out.appendChild(novaOpcao);
+      })
+
+    })
+    .catch(error => {
+      console.error('Ocorreu ao buscar as funcionários:', error);
+    });
+
+
+
+}
+
 
 // Função para setar as sublocações
 function get_sub(info) {
 
 
   let subloc = document.getElementById('sublocacao')
+  let subloc2 = document.getElementById('subloc_part_entry')
+  
   let id = info
   const url = `http://179.209.195.115:157/api/v1/location/all`
   let auth = localStorage.getItem('auth')
@@ -812,6 +898,9 @@ function get_sub(info) {
 
   while (subloc.options.length > 1) {
     subloc.remove(subloc.options.length - 1);
+  }
+  while (subloc2.options.length > 1) {
+    subloc2.remove(subloc2.options.length - 1);
   }
 
   fetch(url, fetchOption)
@@ -837,13 +926,17 @@ function get_sub(info) {
 
               // Adicionar a nova opção ao <select>
               subloc.appendChild(novaOpcao);
+              subloc2.appendChild(novaOpcao);
 
             })
             subloc.removeAttribute('disabled', '')
+            subloc2.removeAttribute('disabled', '')
           }
           else {
             subloc.setAttribute('disabled', 'true')
             subloc.selectedIndex = 0
+            subloc2.setAttribute('disabled', 'true')
+            subloc2.selectedIndex = 0
           }
         }
       });
