@@ -226,7 +226,9 @@ let form_info_in = document.getElementById("dadosFormPartEntry")
 form_info_in.addEventListener("submit", (e) => {
   e.preventDefault()
 
-  const url = 'http://179.209.195.115:157/api/v1/part-entry/create'
+  let qtd =  document.getElementById("qtd_part_entry").value
+
+  const url = `http://179.209.195.115:157/api/v1/part-entry/create?amount=${qtd}` 
 
 
 
@@ -239,6 +241,7 @@ form_info_in.addEventListener("submit", (e) => {
   let state = document.getElementById("estado_part_entry").value
   let reason = document.getElementById("motivo_part_entry").value
 
+  
 
   let obj = {
     "userId": userId,
