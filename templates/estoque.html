@@ -472,20 +472,20 @@
                                     <input type="text" class="form-control" id="info_locacao" name="locacao" disabled>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="modelo_carro">Modelo do carro</label>
-                                    <input type="text" class="form-control" id="info_modelo_carro" name="modelo_carro"
+                                    <label for="sublocacao">Sublocação</label>
+                                    <input type="text" class="form-control" id="info_sublocacao" name="sublocacao"
                                         disabled>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="sublocacao">Sublocação</label>
-                                    <input type="text" class="form-control" id="info_sublocacao" name="sublocacao"
+                                    <label for="modelo_carro">Modelo do carro</label>
+                                    <input type="text" class="form-control" id="info_modelo_carro" name="modelo_carro"
                                         disabled>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="estado">Estado</label>
                                     <input type="text" class="form-control" name="estado" id="info_estado" disabled>
                                 </div>
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-4">
                                     <label for="peso">Peso</label>
                                     <input type="text" class="form-control" name="peso" id="info_peso" disabled>
                                 </div>
@@ -493,16 +493,16 @@
                                     <label for="ncm">NCM</label>
                                     <input type="text" name="ncm" class="form-control" id="info_ncm" disabled>
                                 </div> -->
-                                <div class="form-group col-md-3">
+                                <!-- <div class="form-group col-md-3">
                                     <label for="quantidade">Quantidade</label>
                                     <input type="text" class="form-control" id="info_quantidade" name="quantidade"
                                         disabled>
-                                </div>
-                                <div class="form-group col-md-3">
+                                </div> -->
+                                <div class="form-group col-md-4">
                                     <label for="eixo">Eixo</label>
                                     <input type="text" class="form-control" id="info_eixo" name="eixo" disabled>
                                 </div>
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-4">
                                     <label for="lado">Lado</label>
                                     <input type="text" class="form-control" id="info_lado" name="lado" disabled>
                                 </div>
@@ -819,7 +819,6 @@
                     { data: 'preco', visible: false, searchable: false },
                     { data: 'subsistema', visible: false, searchable: false },
                     { data: 'fabricante', visible: false, searchable: false },
-                    { data: 'qtd', visible: false, searchable: false },
                     { data: 'eixo', visible: false, searchable: false },
                     { data: 'lado', visible: false, searchable: false },
                 ],
@@ -868,9 +867,9 @@
                                             'estado': locloc.state,
                                             'preco': locloc.price,
                                             'peso': locloc.weight,
-                                            'subsistema': locloc.carModel,
+                                            'subsistema': locloc.subsystem,
                                             'fabricante2': locloc.manufacturer,
-                                            'qtd': 2,
+                                          
                                             'eixo': locloc.axleSide,
                                             'lado': 'Left',
                                             'desc_peca': locloc.name,
@@ -890,9 +889,9 @@
                                                 'estado': pecas.state,
                                                 'preco': pecas.price,
                                                 'peso': pecas.weight,
-                                                'subsistema': pecas.carModel,
+                                                'subsistema': pecas.subsystem,
                                                 'fabricante2': pecas.manufacturer,
-                                                'qtd': 2,
+                                                
                                                 'eixo': pecas.axleSide,
                                                 'lado': 'Left',
                                                 'desc_peca': pecas.name,
@@ -949,9 +948,9 @@
                                     'estado': locloc.state,
                                     'preco': locloc.price,
                                     'peso': locloc.weight,
-                                    'subsistema': locloc.carModel,
+                                    'subsistema': locloc.subsystem,
                                     'fabricante2': locloc.manufacturer,
-                                    'qtd': 2,
+                                   
                                     'eixo': locloc.axleSide,
                                     'lado': 'Left',
                                     'desc_peca': locloc.name,
@@ -972,9 +971,9 @@
                                         'estado': pecas.state,
                                         'preco': pecas.price,
                                         'peso': pecas.weight,
-                                        'subsistema': pecas.carModel,
+                                        'subsistema': pecas.subsystem,
                                         'fabricante2': pecas.manufacturer,
-                                        'qtd': 2,
+                                        
                                         'eixo': pecas.axleSide,
                                         'lado': 'Left',
                                         'desc_peca': pecas.name,
