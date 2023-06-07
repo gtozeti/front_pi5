@@ -62,7 +62,7 @@ form.addEventListener("submit", (e) => {
   let manufacturer = document.getElementById("fabricante").value
   let axleSide = document.getElementById("eixo").value
   // let lado = document.getElementById("lado").value
-  let qtd = document.getElementById("quantidade").value
+  // let qtd = document.getElementById("quantidade").value
 
   let obj = {
     "name": name,
@@ -77,9 +77,9 @@ form.addEventListener("submit", (e) => {
     "axleSide": axleSide,
     // "lado": lado,
     "minimumStock": {
-      "threeStages": qtd,
-      "sixStages": qtd,
-      "nineStages": qtd
+      "threeStages": 2,
+      "sixStages": 2,
+      "nineStages": 2
     }
   }
 
